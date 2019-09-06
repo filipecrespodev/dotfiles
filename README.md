@@ -13,6 +13,25 @@ Depois de clonar o projeto é necessario  mapear a pasta de *extensions* par ao 
 Code 
 ```
 
+<a href="https://github.com/lupoDharkael/flameshot/releases">
+    <img src="https://img.shields.io/github/release/lupoDharkael/flameshot.svg?style=flat-square" alt="Latest Stable Release" />
+</a>
+
+## Apps
+
+| Project | Status | Description |
+|---------|--------|-------------|
+| [flameshot]          | [![flameshot-status]][flameshot] | Powerful yet simple to use screenshot software. |
+| [peek]                | [![peek-status]][peek] | Peek - an animated GIF recorder |
+
+[flameshot]: https://github.com/lupoDharkael/flameshot
+[flameshot-status]: https://img.shields.io/github/release/lupoDharkael/flameshot.svg
+
+[peek]: https://github.com/phw/peek
+[peek-status]: https://img.shields.io/github/release/phw/peek.svg
+
+[terminator]: https://gnometerminator.blogspot.com/p/introduction.html
+[terminator-status]:
 
 ## Ecosystem
 
