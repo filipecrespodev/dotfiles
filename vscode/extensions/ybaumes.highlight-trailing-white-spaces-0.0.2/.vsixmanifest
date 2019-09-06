@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+  <Metadata>
+    <Identity Language="en-US" Id="highlight-trailing-white-spaces" Version="0.0.2" Publisher="ybaumes"/>
+    <DisplayName>Highlight Trailing White Spaces</DisplayName>
+    <Description xml:space="preserve">This extension highlight trailing white spaces in red.</Description>
+    <Tags></Tags>
+    <Categories>Linters</Categories>
+    <GalleryFlags>Public</GalleryFlags>
+    <Properties>
+      
+        <Property Id="Microsoft.VisualStudio.Services.Links.Source" Value="https://github.com/yifu/highlight-trailing-whitespaces" />
+        <Property Id="Microsoft.VisualStudio.Services.Links.Getstarted" Value="https://github.com/yifu/highlight-trailing-whitespaces" />
+        <Property Id="Microsoft.VisualStudio.Services.Links.Repository" Value="https://github.com/yifu/highlight-trailing-whitespaces" />
+      
+      <Property Id="Microsoft.VisualStudio.Services.Links.Support" Value="https://github.com/yifu/highlight-trailing-whitespaces/issues" />
+      
+      
+      
+    </Properties>
+    
+    
+  </Metadata>
+  <Installation>
+    <InstallationTarget Id="Microsoft.VisualStudio.Code"/>
+  </Installation>
+  <Dependencies/>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.Code.Manifest" Path="extension/package.json" Addressable="true" />
+    <Asset Type="Microsoft.VisualStudio.Services.Content.Details" Path="extension/README.md" Addressable="true" />
+  </Assets>
+</PackageManifest>

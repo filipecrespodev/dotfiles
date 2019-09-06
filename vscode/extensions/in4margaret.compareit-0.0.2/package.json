@@ -1,0 +1,69 @@
+{
+	"name": "compareit",
+	"displayName": "compareit",
+	"description": "Compare files ",
+	"version": "0.0.2",
+	"publisher": "in4margaret",
+	"license": "MIT",
+	"engines": {
+		"vscode": "^1.19.0"
+	},
+	"icon": "images/icon.png",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/in4margaret/compareit.git"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"main": "./out/extension",
+	"contributes": {
+		"commands": [
+			{
+				"command": "compareit.compareWith",
+				"title": "Compare with..."
+			},
+			{
+				"command": "compareit.compareWithClipboard",
+				"title": "Compare with clipboard"
+			}
+		],
+		"menus": {
+			"explorer/context": [
+				{
+					"command": "compareit.compareWith",
+					"group": "navigation@1"
+				},
+				{
+					"command": "compareit.compareWithClipboard",
+					"group": "navigation@2"
+				}
+			]
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "npm run compile && node ./node_modules/vscode/bin/test"
+	},
+	"devDependencies": {
+		"typescript": "^2.6.1",
+		"vscode": "^1.1.6",
+		"@types/node": "^7.0.43",
+		"@types/mocha": "^2.2.42"
+	},
+	"dependencies": {
+		"@types/clipboardy": "^1.1.0",
+		"clipboardy": "^1.2.2"
+	},
+	"__metadata": {
+		"id": "bf5d633c-03fa-4439-9e53-6b4d0c430fcf",
+		"publisherId": "aa1eb38d-8851-4076-ad2d-d24d24c2fdc6",
+		"publisherDisplayName": "in4margaret"
+	}
+}

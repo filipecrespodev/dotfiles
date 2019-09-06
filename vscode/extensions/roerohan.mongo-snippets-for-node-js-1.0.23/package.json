@@ -1,0 +1,94 @@
+{
+	"name": "mongo-snippets-for-node-js",
+	"displayName": "Mongo Snippets for Node-js",
+	"description": "Provides snippets, boilerplate code for Mongo queries and completion suggestions for mongoose models.",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/roerohan/vscode-MongoSnippets-NodeJS"
+	},
+	"keywords": [
+		"MongoDB",
+		"NoSQL",
+		"javascript",
+		"node",
+		"snippets",
+		"Mongo",
+		"mongoose-js",
+		"mongoose"
+	],
+	"version": "1.0.23",
+	"publisher": "roerohan",
+	"icon": "static/icon.png",
+	"engines": {
+		"vscode": "^1.1.28"
+	},
+	"categories": [
+		"Snippets",
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:extension.mongoosejsDocs",
+		"onCommand:extension.extensionDocs",
+		"onCommand:extension.setup",
+		"onCommand:extension.seeModels",
+		"onCommand:extension.viewCollections",
+		"onLanguage:javascript"
+	],
+	"main": "./src/extension.js",
+	"contributes": {
+		"snippets": [
+			{
+				"language": "javascript",
+				"path": "./src/snippets/snippets.json"
+			}
+		],
+		"commands": [
+			{
+				"command": "extension.mongoosejsDocs",
+				"title": "Mongo Snippets: Refer to Mongoose Documentation"
+			},
+			{
+				"command": "extension.extensionDocs",
+				"title": "Mongo Snippets: Refer to Extension Documentation"
+			},
+			{
+				"command": "extension.setup",
+				"title": "Mongo Snippets: Set up Mongo Boilerplate Code"
+			},
+			{
+				"command": "extension.seeModels",
+				"title": "Mongo Snippets: See Existing Models"
+			},
+			{
+				"command": "extension.viewCollections",
+				"title": "Mongo Snippets: View MongoDB Collection as JSON"
+			}
+		]
+	},
+	"license": "SEE LICENSE IN LICENSE",
+	"homepage": "https://github.com/roerohan/vscode-MongoSnippets-NodeJS/blob/master/README.md",
+	"bugs": {
+		"url": "https://github.com/roerohan/vscode-MongoSnippets-NodeJS/issues",
+		"email": "roerohan@gmail.com"
+	},
+	"galleryBanner": {
+		"color": "#095256",
+		"theme": "dark"
+	},
+	"scripts": {
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "node ./node_modules/vscode/bin/test"
+	},
+	"devDependencies": {
+		"typescript": "^3.3.1",
+		"vscode": "^1.1.28",
+		"eslint": "^5.13.0",
+		"@types/node": "^10.12.21",
+		"@types/mocha": "^2.2.42"
+	},
+	"__metadata": {
+		"id": "4320dddb-2e41-4c6f-9ff0-2062dbdaf05b",
+		"publisherId": "099844d0-36ea-4d38-8525-703f5f54bbc0",
+		"publisherDisplayName": "Rohan Mukherjee"
+	}
+}

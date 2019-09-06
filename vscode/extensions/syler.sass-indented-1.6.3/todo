@@ -1,0 +1,31 @@
+|----------------------------------------------------------------------|
+# TODO for Version 1.6.4
+|----------------------------------------------------------------------|
+#Pre Publish TODO List
+1. change changelog.md
+2. Update README.md
+3. change package.json
+|----------------------------------------------------------------------|
+
+TODO figure out why folding isn't working
+TODO* Vue Support (medium Priority)
+
+SASS Completions
+|----------------------------------------------------------------------|
+// #4 (Improvement) Support autocomplete in Vue template files
+// check wether the currentWord is in a mixin if in Mixin only show mixin variables. (mixin variable completion)
+|----------------------------------------------------------------------|
+SASS Emmet Replacement
+|----------------------------------------------------------------------|
+TODO*Replace Emmet completion ordering. (medium Priority)?
+|----------------------------------------------------------------------|
+SASS Formatter
+|----------------------------------------------------------------------|
+// convert scss to sass.
+// set space between property and value (prop: val)
+|----------------------------------------------------------------------|
+SASS Linter
+|----------------------------------------------------------------------|
+TODO  Lint all open windows.
+TODO Fix #16
+|----------------------------------------------------------------------|
