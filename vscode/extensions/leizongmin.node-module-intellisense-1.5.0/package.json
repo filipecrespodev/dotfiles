@@ -1,0 +1,91 @@
+{
+	"name": "node-module-intellisense",
+	"displayName": "Node.js Modules Intellisense",
+	"description": "Autocompletes Node.js modules in import statements",
+	"version": "1.5.0",
+	"publisher": "leizongmin",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/leizongmin/vscode-node-module-intellisense.git"
+	},
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/leizongmin/vscode-node-module-intellisense/issues"
+	},
+	"homepage": "https://github.com/leizongmin/vscode-node-module-intellisense#readme",
+	"engines": {
+		"vscode": "^1.5.0"
+	},
+	"categories": [
+		"Other",
+		"Languages"
+	],
+	"activationEvents": [
+		"onLanguage:javascript",
+		"onLanguage:javascriptreact",
+		"onLanguage:typescript",
+		"onLanguage:typescriptreact",
+		"onLanguage:html"
+	],
+	"main": "./out/src/extension",
+	"icon": "images/icon.png",
+	"contributes": {
+		"configuration": {
+			"type": "object",
+			"title": "node-module-intellisense",
+			"properties": {
+				"node-module-intellisense.scanBuiltinModules": {
+					"type": "boolean",
+					"default": true,
+					"description": "Scans builtin modules as well"
+				},
+				"node-module-intellisense.scanDevDependencies": {
+					"type": "boolean",
+					"default": true,
+					"description": "Scans devDependencies as well"
+				},
+				"node-module-intellisense.scanFileModules": {
+					"type": "boolean",
+					"default": true,
+					"description": "Scans file modules as well"
+				},
+				"node-module-intellisense.autoStripExtensions": {
+					"type": "array",
+					"default": [
+						".js",
+						".jsx",
+						".ts",
+						".d.ts",
+						".tsx"
+					],
+					"description": "Auto strip module extensions"
+				},
+				"node-module-intellisense.modulePaths": {
+					"type": "array",
+					"default": [],
+					"description": "Module Paths to scan. Use ${workspaceRoot} for workspace lookup."
+				}
+			}
+		}
+	},
+	"scripts": {
+		"clean": "rm -rf out",
+		"vscode:prepublish": "npm run clean && tsc -p ./",
+		"compile": "npm run clean && tsc -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install"
+	},
+	"devDependencies": {
+		"@types/mocha": "^2.2.44",
+		"@types/node": "^6.0.93",
+		"@types/resolve": "0.0.4",
+		"mocha": "^2.3.3",
+		"typescript": "^2.6.2",
+		"vscode": "^1.1.10"
+	},
+	"dependencies": {},
+	"__metadata": {
+		"id": "1bb92b2c-526c-4bfd-bb38-5bae1b278c89",
+		"publisherId": "eb81807c-3252-427c-93c1-7562325b8534",
+		"publisherDisplayName": "Zongmin Lei"
+	}
+}

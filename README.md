@@ -16,7 +16,6 @@ Code
 ```
 
 
-
 ## Apps
 
 | Project | Status | Description |
@@ -38,18 +37,20 @@ Code
 
 | Project | Status | Description |
 |---------|--------|-------------|
-| [vue-router]          | [![vue-router-status]][vue-router-package] | Single-page application routing |
-| [vuex]                | [![vuex-status]][vuex-package] | Large-scale state management |
+| [Sound Input & Output Device Chooser]        | [![sound]][sound-status]  | Shows a list of sound output and input devices |
+| [Multi Monitors Add-On]                | [![monitors]][monitors-status] | Add multiple monitors overview and panel for 
 
 
-[vue-router]: https://github.com/vuejs/vue-router
-[vuex]: https://github.com/vuejs/vuex
 
-[vue-router-status]: https://img.shields.io/npm/v/vue-router.svg
-[vuex-status]: https://img.shields.io/npm/v/vuex.svg
+[Sound Input & Output Device Chooser]: https://extensions.gnome.org/extension/906/sound-output-device-chooser/
+[sound]: https://img.shields.io/badge/release-v3.22-blue
+[sound-status]: https://github.com/kgshank/gse-sound-output-device-chooser
 
-[vue-router-package]: https://npmjs.com/package/vue-router
-[vuex-package]: https://npmjs.com/package/vuex
+[Multi Monitors Add-On]: https://extensions.gnome.org/extension/921/multi-monitors-add-on/
+[monitors]: https://img.shields.io/badge/release-v2.0-blue
+[monitors-status]: https://github.com/spin83/multi-monitors-add-on
+
+
 
 
 ## VsCode Extensions

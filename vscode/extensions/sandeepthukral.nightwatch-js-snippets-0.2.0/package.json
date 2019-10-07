@@ -1,0 +1,30 @@
+{
+	"name": "nightwatch-js-snippets",
+	"publisher": "sandeepthukral",
+	"description": "Nightwatch JS snippets",
+	"version": "0.2.0",
+	"engines": {
+		"vscode": "0.10.x"
+	},
+	"categories": [
+		"Snippets"
+	],
+	"contributes": {
+		"snippets": [
+			{
+				"language": "javascript",
+				"path": "./snippets/javascript.json"
+			}
+		]
+	},
+	"icon": "images/nightwatch-snippets-dark.jpg",
+	"galleryBanner": {
+		"color": "#5c2d91",
+		"theme": "dark"
+	},
+	"__metadata": {
+		"id": "ef00e8c7-7ba3-47bc-a33a-3974ba8292fd",
+		"publisherId": "50ca3ff6-7af5-411b-a6d1-720b68b745a9",
+		"publisherDisplayName": "sandeepthukral"
+	}
+}
