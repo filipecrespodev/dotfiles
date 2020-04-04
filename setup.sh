@@ -12,7 +12,7 @@ grep bashrc_includes $bashrc_file || echo "source ~/.bashrc_includes" >> $bashrc
 
 # vscode 
 vscode/extension.sh
-cat vscode/settings.json > ~/.config/Code/User/settings.json
+ln -s vscode/settings.json > ~/.config/Code/User/settings.json
 
 source $bashrc_file
 
