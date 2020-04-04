@@ -9,5 +9,6 @@
     ],
     "window.zoomLevel": -1,
     "explorer.confirmDragAndDrop": false,
-    "workbench.iconTheme": "material-icon-theme"
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.tabSize": 2
 }
