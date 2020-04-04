@@ -1,4 +1,4 @@
-alias sshprod='ssh -i .ssh/id_rsa_gateway _perrella@nibbler0005.linux.locaweb.com.br'
+alias nibbler='ssh -i ~/.ssh/nibbler/id_rsa_gateway _filcrespo@nibbler0006.linux.locaweb.com.br'
 
 alias ..="cd .."
 
