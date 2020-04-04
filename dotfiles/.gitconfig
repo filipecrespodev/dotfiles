@@ -1,0 +1,60 @@
+[alias]
+	d = diff --color
+	a = add
+	st = status
+	pt = push --tags
+	lg = log --graph --pretty=format:'[%cn]%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+	rc = rebase --continue
+	cm = checkout master
+	c- = checkout -
+	mm = merge master
+	c = checkout
+	r = reset --hard HEAD
+	cl = clean -fd
+	p = pull
+	f = fetch
+	cb = checkout -b
+	co = commit -m
+	b = branch
+	ca = commit --amend --no-edit
+	cae = commit --amend
+	changelog = log --reverse --pretty=format:'- %B' master..HEAD
+	pf = push --force-with-lease
+	rim = rebase -i master
+	h = rev-parse HEAD
+	cf = commit --fixup
+	wip = commit -am 'wip'
+	l = log -n 1 --pretty=format:'%h %s' --
+	r1 = reset HEAD^1
+	mt = mergetool
+	rebm = rebase master --preserve-merges
+	rollback = reset --soft HEAD~1
+	
+[user]
+	name = Filipe Crespo
+	email = filipe.crespo@locaweb.com.br
+
+[github]
+	user = Filipe Crespo
+	email = filipesoares.crespo@gmail.com
+
+[branch]
+	autosetuprebase = always
+
+[merge]
+  ff = no
+  commit = no
+  tool = meld
+
+[pull]
+	rebase = preserve
+
+[push]
+	default = current
+
+[core]
+	editor = vim
+	pager = diff-so-fancy | less --tabs=4 -RFX
+
+[rebase]
+	autosquash = true

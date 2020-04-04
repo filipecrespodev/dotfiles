@@ -1,0 +1,19 @@
+alias sshprod='ssh -i .ssh/id_rsa_gateway _perrella@nibbler0005.linux.locaweb.com.br'
+
+alias ..="cd .."
+
+function git_clean_merged_branches(){
+  git checkout master
+  git fetch
+  git pull
+  git branch -r --merged | grep origin | grep -v '>' | grep -v master | xargs -L1 | cut -d"/" -f2- | xargs git push origin --delete || true
+  git branch --merged | grep -v master |  xargs git branch -d || true
+  git fetch -p
+}
+export -f git_clean_merged_branches
+
+function gsu(){
+  branch_name="$(git branch | awk '/^\* / { print $2 }')"
+  git branch --set-upstream-to origin/${branch_name} ${branch_name}
+}
+export -f gsu

@@ -1,0 +1,13 @@
+{
+    "workbench.editor.enablePreview": false,
+    "editor.minimap.enabled": false,
+    "ruby.codeCompletion": "rcodetools",
+    "ruby.intellisense": "rubyLocate",
+    "editor.rulers": [
+        80,
+        105
+    ],
+    "window.zoomLevel": -1,
+    "explorer.confirmDragAndDrop": false,
+    "workbench.iconTheme": "material-icon-theme",
+}

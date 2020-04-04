@@ -1,0 +1,4 @@
+#!/bin/bash
+
+source ~/.gitpromptrc
+source ~/.aliasesrc
