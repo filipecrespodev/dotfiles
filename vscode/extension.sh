@@ -21,3 +21,5 @@ code --install-extension davidanson.vscode-markdownlint
 code --install-extension Zignd.html-css-class-completion
 code --install-extension CoenraadS.bracket-pair-colorizer
 code --install-extension christian-kohler.path-intellisense
+code --install-extension ybaumes.highlight-trailing-white-spaces
+code --install-extension HookyQR.beautify

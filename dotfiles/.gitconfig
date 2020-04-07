@@ -14,7 +14,7 @@
 	p = pull
 	f = fetch
 	cb = checkout -b
-	co = commit -m
+	co = commit -am
 	b = branch
 	ca = commit --amend --no-edit
 	cae = commit --amend
