@@ -1,5 +1,5 @@
 alias nibbler='ssh -i ~/.ssh/id_rsa_gateway _filcrespo@nibbler0006.linux.locaweb.com.br'
-
+alias vpn='openfortivpn'
 alias ..="cd .."
 
 function git_clean_merged_branches(){

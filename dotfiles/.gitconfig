@@ -1,16 +1,13 @@
 [alias]
 	d = diff --color
-	a = add
+	a = add --all
 	st = status
-	pt = push --tags
 	lg = log --graph --pretty=format:'[%cn]%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 	rc = rebase --continue
 	cm = checkout master
 	c- = checkout -
-	mm = merge master
 	c = checkout
 	r = reset --hard HEAD
-	cl = clean -fd
 	p = pull
 	f = fetch
 	cb = checkout -b
@@ -27,9 +24,8 @@
 	l = log -n 1 --pretty=format:'%h %s' --
 	r1 = reset HEAD^1
 	mt = mergetool
-	rebm = rebase master --preserve-merges
 	rollback = reset --soft HEAD~1
-	
+
 [user]
 	name = Filipe Crespo
 	email = filipe.crespo@locaweb.com.br
@@ -62,7 +58,7 @@
   old = "red bold"
   new = "green bold"
   whitespace = "red reverse"
-	
+
 [color "diff-highlight"]
   oldNormal = "red bold"
   oldHighlight = "red bold 52"
