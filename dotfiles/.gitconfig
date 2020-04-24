@@ -24,9 +24,9 @@
         wip = commit -am 'wip'
         rm = reset --hard master
 	changelog = log --reverse --pretty=format:'- %B' master..HEAD
+	lg = log --graph --pretty=format:'[%cn]%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 
         d = diff --color
-	lg = log --graph --pretty=format:'[%cn]%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 	r = reset --hard HEAD
 	pf = push --force-with-lease
 	rim = rebase -i master
