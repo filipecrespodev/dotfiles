@@ -1,29 +1,39 @@
 [alias]
-	d = diff --color
-	a = add --all
-	st = status
-	lg = log --graph --pretty=format:'[%cn]%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
-	rc = rebase --continue
-	cm = checkout master
-	c- = checkout -
 	c = checkout
-	r = reset --hard HEAD
-	p = pull
-	f = fetch
+	c- = checkout -
 	cb = checkout -b
-	co = commit -am
-	b = branch
-	ca = commit --amend --no-edit
+	cm = checkout master
+
+        p = pull origin
+
+        co = commit -am
 	cae = commit --amend
+	ca = commit --amend --no-edit
+
+        a = add .
+
+        rm = rebase master
+	rc = rebase --continue
+
+	s = status
+
+	b = branch
+
+	f = fetch
+
+        wip = commit -am 'wip'
+        rm = reset --hard master
 	changelog = log --reverse --pretty=format:'- %B' master..HEAD
+
+        d = diff --color
+	lg = log --graph --pretty=format:'[%cn]%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+	r = reset --hard HEAD
 	pf = push --force-with-lease
 	rim = rebase -i master
 	h = rev-parse HEAD
 	cf = commit --fixup
-	wip = commit -am 'wip'
 	l = log -n 1 --pretty=format:'%h %s' --
 	r1 = reset HEAD^1
-	mt = mergetool
 	rollback = reset --soft HEAD~1
 
 [user]
