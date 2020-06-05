@@ -4,15 +4,15 @@
 	cb = checkout -b
 	cm = checkout master
 
-        p = pull origin
+	p = pull origin
 
-        co = commit -am
+	co = commit -am
 	cae = commit --amend
 	ca = commit --amend --no-edit
 
-        a = add .
+	a = add .
 
-        rm = rebase master
+	rm = rebase master
 	rc = rebase --continue
 
 	s = status
@@ -21,12 +21,12 @@
 
 	f = fetch
 
-        wip = commit -am 'wip'
-        rm = reset --hard master
+	wip = commit -am 'wip'
+	rm = reset --hard master
 	changelog = log --reverse --pretty=format:'- %B' master..HEAD
 	lg = log --graph --pretty=format:'[%cn]%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 
-        d = diff --color
+	d = diff --color
 	r = reset --hard HEAD
 	pf = push --force-with-lease
 	rim = rebase -i master
