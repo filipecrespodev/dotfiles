@@ -2,3 +2,4 @@
 
 source ~/.gitpromptrc
 source ~/.aliasesrc
+source ~/.functionsrc

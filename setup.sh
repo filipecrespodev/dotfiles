@@ -12,9 +12,8 @@ grep bashrc_includes $bashrc_file || echo "source ~/.bashrc_includes" >> $bashrc
 
 # vscode
 vscode/extension.sh
+rm -f ~/.config/Code/User/settings.json
 ln -s vscode/settings.json ~/.config/Code/User/settings.json
-
-# TODO: colocar esse script no /usr/sbin/request_with_ticket para ficar global na maquina
 
 source $bashrc_file
 

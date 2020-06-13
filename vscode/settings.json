@@ -10,5 +10,17 @@
     "window.zoomLevel": -1,
     "explorer.confirmDragAndDrop": false,
     "workbench.iconTheme": "material-icon-theme",
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
+    "python.dataScience.askForKernelRestart": false,
+    "python.dataScience.sendSelectionToInteractiveWindow": true,
+    "explorer.confirmDelete": false,
+    "launch": {
+
+
+    },
+    "terminal.integrated.shell.osx": "/bin/zsh",
+    "workbench.colorTheme": "Solarized Dark",
+    "open-in-browser.default": "firefox"
+    // teste
 }
+
