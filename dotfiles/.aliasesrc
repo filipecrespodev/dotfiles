@@ -7,3 +7,5 @@ alias loca="cd ~/workspace/loca"
 alias my="cd ~/workspace/my"
 alias gift="docker exec -ti gift_web bash"
 alias add="ssh-add ~/.ssh/id_rsa_gateway"
+alias hoje="cat ~/workspace/loca/ponto"
+alias ponto='date +"%H:%M" >> ~/workspace/loca/ponto'

@@ -7,7 +7,7 @@
         80,
         105
     ],
-    "window.zoomLevel": -1,
+    "window.zoomLevel": 0,
     "explorer.confirmDragAndDrop": false,
     "workbench.iconTheme": "material-icon-theme",
     "editor.tabSize": 2,
@@ -17,10 +17,14 @@
     "launch": {
 
 
+
     },
     "terminal.integrated.shell.osx": "/bin/zsh",
     "workbench.colorTheme": "Solarized Dark",
-    "open-in-browser.default": "firefox"
-    // teste
+    "open-in-browser.default": "firefox",
+    "editor.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.fontLigatures": true,
+    "scm.alwaysShowRepositories": true,
+    "diffEditor.ignoreTrimWhitespace": false
 }
 
