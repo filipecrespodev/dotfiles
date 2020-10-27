@@ -18,3 +18,4 @@ ln -s $PWD/vscode/settings.json ~/.config/Code/User/settings.json
 source $bashrc_file
 
 echo "done!"
+

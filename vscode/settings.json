@@ -11,8 +11,6 @@
     "explorer.confirmDragAndDrop": false,
     "workbench.iconTheme": "material-icon-theme",
     "editor.tabSize": 2,
-    "python.dataScience.askForKernelRestart": false,
-    "python.dataScience.sendSelectionToInteractiveWindow": true,
     "explorer.confirmDelete": false,
     "launch": {
 
@@ -25,6 +23,8 @@
     "editor.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
     "editor.fontLigatures": true,
     "scm.alwaysShowRepositories": true,
-    "diffEditor.ignoreTrimWhitespace": false
+    "diffEditor.ignoreTrimWhitespace": false,
+    "jupyter.askForKernelRestart": false,
+    "jupyter.sendSelectionToInteractiveWindow": true
 }
 

@@ -1,9 +1,6 @@
 # Dotfiles
 
-## Dependency
-
-* [VSCode](https://code.visualstudio.com/download)
-* [vscode](https://code.visualstudio.com/download)
+This project contains my settings to develop on ubuntu. After running the scripts hambiente is ready for development with Docker, VsCode, Vim, Terminator and ZSH.
 
 ## Clone
 
@@ -13,25 +10,30 @@ git clone
 
 ## Bootstrap
 
-```sh
-git clone
-./bootstrap.sh # install aplications.
-```
+The bootstrap install this applications:
 
 * [Docker](https://docs.docker.com/engine/install/ubuntu/)
 * [Docker-compose](https://docs.docker.com/compose/install/)
+* [Brave](https://code.visualstudio.com/download)
 * [Terminator](https://code.visualstudio.com/download)
 * [VPN](https://code.visualstudio.com/download)
-* [Brave](https://code.visualstudio.com/download)
+* [Peek](https://code.visualstudio.com/download)
+* [Zsh](https://code.visualstudio.com/download)
+* [Vim Plugins](https://code.visualstudio.com/download)
+
+```sh
+git clone
+./bootstrap.sh
+```
 
 ## Setup
 
 ```sh
-./setup.sh # it will create symlink for all dotfiles
+./setup.sh
 ```
 
 ## License
 
 [MIT](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2013-present, Filipe Crespo
+Copyright (c) 2020-present, Filipe Crespo

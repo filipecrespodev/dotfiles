@@ -44,13 +44,20 @@
 	user = Filipe Crespo
 	email = filipesoares.crespo@gmail.com
 
+[apply]
+  whitespace = nowarn
+
 [branch]
+  autosetupmerge = true
 	autosetuprebase = always
 
 [merge]
   ff = no
   commit = no
   tool = meld
+  summary = true
+  verbosity = 1
+  tool = vimdiff
 
 [pull]
 	rebase = preserve
@@ -60,6 +67,17 @@
 
 [core]
 	editor = vim
+	autocrlf = false
+  excludesfile = ~/.gitignore
+
+[rebase]
+	autosquash = true
+
+[advice]
+  statusHints = false
+
+[color]
+  ui = true
 
 [color "diff"]
   meta = "yellow bold"
@@ -74,6 +92,3 @@
   oldHighlight = "red bold 52"
   newNormal = "green bold"
   newHighlight = "green bold 22"
-
-[rebase]
-	autosquash = true
