@@ -8,25 +8,33 @@ set nocompatible
 call plug#begin('~/.vim/plugged')
 
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'flazz/vim-colorschemes'
+Plug 'dhruvasagar/vim-table-mode'
 Plug 'janko/vim-test'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'liuchengxu/space-vim-dark'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
+Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Elixir
+Plug 'amiralies/coc-elixir', { 'do': 'yarn install && yarn prepack' }
+Plug 'mhinz/vim-mix-format', { 'for': ['elixir'] }
+Plug 'slashmili/alchemist.vim'
 
 call plug#end()
 
 filetype plugin indent on
 syntax enable
 
-set background=dark
-colorscheme hybrid
+color space-vim-dark
+hi LineNr ctermbg=NONE guibg=NONE
+
+" disable gui cursor styling
+set guicursor=
 
 " Move the cursor to the matched string
 set incsearch
@@ -53,7 +61,7 @@ set laststatus=2
 " New window is put below the current one
 set splitbelow
 " New window is put right of the current one
-set splitright
+set splitright<C-h>
 
 " Show commands
 set showcmd
@@ -120,13 +128,12 @@ map <C-k> <C-w>k
 map <C-l> <C-w>l
 
 " ctrl c + ctrl v
-vmap <C-c> "+yi
-vmap <C-v> c<ESC>"+p
-imap <C-v> <C-r><C-o>+
+vmap <C-c> "+y
+vmap <C-v> c<ESC>"+gP
 
 " fzf.vim mappings
-nnoremap <C-g> :Rg<Cr>
-nnoremap <C-p> :GFiles<Cr>
+nnoremap <C-g> :Rg<CR>
+nnoremap <C-p> :GFiles<CR>
 
 " NerdTree mappings
 map <leader>t :NERDTreeToggle<CR>
@@ -136,3 +143,20 @@ nmap <silent> <leader>tn :TestNearest<CR>
 nmap <silent> <leader>tf :TestFile<CR>
 nmap <silent> <leader>ta :TestSuite<CR>
 
+" elixir auto `mix format` on save
+let g:mix_format_on_save = 1
+let g:mix_format_silent_errors = 1
+
+" Disable vim recording
+map q <Nop>
+
+" coc.nvim - use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()

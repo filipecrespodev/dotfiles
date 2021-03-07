@@ -1,4 +1,4 @@
-!/bin/bash
+#/bin/bash
 
 add-apt-repository ppa:gnome-terminator
 add-apt-repository ppa:peek-developers/stable

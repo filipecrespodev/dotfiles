@@ -5,6 +5,7 @@ export bashrc_file=~/.bashrc
 dotfiles=$(ls -A dotfiles| egrep '^\.')
 for i in $dotfiles
 do
+ rm -f ~/$i
  ln -s $PWD/dotfiles/$i ~/$i
 done
 
