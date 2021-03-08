@@ -20,3 +20,6 @@ gnupg-agent \
 software-properties-common \
 brave-browser
 
+# disable sound in terinal 
+sudo gsettings set org.gnome.desktop.sound event-sounds false
+gsettings set org.gnome.desktop.sound event-sounds false
