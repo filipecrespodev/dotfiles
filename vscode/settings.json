@@ -24,7 +24,6 @@
     "scm.alwaysShowRepositories": true,
     "diffEditor.ignoreTrimWhitespace": false,
     "jupyter.askForKernelRestart": false,
-    "jupyter.sendSelectionToInteractiveWindow": true,
-    "window.zoomLevel": 1
+    "jupyter.sendSelectionToInteractiveWindow": true
 }
 

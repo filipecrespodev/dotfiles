@@ -1,162 +1,142 @@
-" Force read encoding
-set encoding=utf-8
+" Leader
+let mapleader = " "
 
-" To work cool, disable compatibility with Vi
-set nocompatible
+" syntax highlighting
+syntax on
 
-" https://github.com/junegunn/vim-plug
-call plug#begin('~/.vim/plugged')
+set backspace=2   " Backspace deletes like most programs in insert mode
+set nobackup
+set nowritebackup
+set noswapfile    " http://robots.thoughtbot.com/post/18739402579/global-gitignore#comment-458413287
+set history=1000  " a lot of history
+set ruler         " show the cursor position all the time
+set hlsearch
+set showcmd       " display incomplete commands
+set incsearch     " do incremental searching
+set laststatus=2  " Always display the status line
+set autowrite     " Automatically :write before running commands
+set ignorecase    " Ignore case when searching...
+set smartcase     " ...unless we type a capital
+set showmode      " Show current mode down the bottom
+set visualbell    " No noise
+set noerrorbells  " No noise
+set t_vb=         " No noise
+set nowrap        " Don't wrap lines
+set modeline      " Turn modeline on (Vi magic comment)
+set modelines=5
+set nomodelineexpr
+set tabstop=2 " Softtabs, 2 spaces
+set shiftwidth=2
+set shiftround
+set expandtab
+set textwidth=80 " Make it obvious where 80 characters is
+set colorcolumn=+1
+set number " Numbers
+set numberwidth=5
+set relativenumber " Make easy to navigate
+set wildmode=list:longest,list:full " enable list of completion
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.cache " skip tmp files
+set list listchars=tab:»·,trail:·,nbsp:· " Display extra whitespace
+set spellfile=$HOME/.vim-spell.utf-8.add " Set spellfile to location that is guaranteed to exist
+set complete+=kspell " Autocomplete with dictionary words when spell check is on
+set diffopt+=vertical " Always use vertical diffs
+set splitbelow " Open new split panes to right and bottom,
+set splitright " which feels more natural
+set spelllang=en_us,pt_br " we're trying to be bilingual
 
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'dhruvasagar/vim-table-mode'
-Plug 'janko/vim-test'
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'liuchengxu/space-vim-dark'
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-Plug 'scrooloose/nerdtree'
-Plug 'sheerun/vim-polyglot'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'vim-airline/vim-airline'
-" Elixir
-Plug 'amiralies/coc-elixir', { 'do': 'yarn install && yarn prepack' }
-Plug 'mhinz/vim-mix-format', { 'for': ['elixir'] }
-Plug 'slashmili/alchemist.vim'
+" Load plugins
+so ~/.vim/plugins.vim
 
-call plug#end()
+" Load custom settings
+so ~/.vim/settings.vim
+
+" Load matchit.vim, but only if the user hasn't installed a newer version.
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+  runtime! macros/matchit.vim
+endif
 
 filetype plugin indent on
-syntax enable
 
-color space-vim-dark
-hi LineNr ctermbg=NONE guibg=NONE
+augroup vimrcEx
+  autocmd!
 
-" disable gui cursor styling
-set guicursor=
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it for commit messages, when the position is invalid, or when
+  " inside an event handler (happens when dropping a file on gvim).
+  autocmd BufReadPost *
+    \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
 
-" Move the cursor to the matched string
-set incsearch
+  " Set syntax highlighting for specific file types
+  autocmd BufRead,BufNewFile Appraisals set filetype=ruby
+  autocmd BufRead,BufNewFile *.md set filetype=markdown
 
-" Search highlight
-set hlsearch
+  " Enable spellchecking for Markdown
+  autocmd FileType markdown setlocal spell
 
-" Search do not wrap around
-set nowrap
+  " Automatically wrap at 80 characters for Markdown
+  autocmd BufRead,BufNewFile *.md setlocal textwidth=80
 
-" Start scrolling 5 lines before the horizontal window border
-set scrolloff=5
+  " Automatically wrap at 72 characters and spell check git commit messages
+  autocmd FileType gitcommit setlocal textwidth=72
+  autocmd FileType gitcommit setlocal spell
 
-" Avoid lags
-set lazyredraw
+  " Allow stylesheets to autocomplete hyphenated words
+  autocmd FileType css,scss,sass setlocal iskeyword+=-
+augroup END
 
-" Display line numbers
-set number
-set numberwidth=4
+" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+if executable('ag')
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
 
-" To display the status line always
-set laststatus=2
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  " let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+  let g:ctrlp_user_command =
+      \ 'ag %s --files-with-matches -g "" --ignore "\.git$\|\.hg$\|\.svn$"'
 
-" New window is put below the current one
-set splitbelow
-" New window is put right of the current one
-set splitright<C-h>
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+" Default to filename searches
+let g:ctrlp_by_filename = 1
 
-" Show commands
-set showcmd
+" Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
+let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
 
-" Hide mode status (INSERT, VISUAL)
-set noshowmode
+" Treat <li> and <p> tags like the block tags they are
+let g:html_indent_tags = 'li\|p'
 
-" Show the cursor position
-set ruler
+" configure syntastic syntax checking to check on open as well as save
+let g:syntastic_check_on_open=1
+let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+let g:syntastic_eruby_ruby_quiet_messages =
+    \ {"regex": "possibly useless use of a variable in void context"}
 
-" Allow backspace in insert mode
-set backspace=start,eol,indent
+" automatically rebalance windows on vim resize
+autocmd VimResized * :wincmd =
 
-" Reduce the need for % in matching
-set showmatch
-set matchtime=2
+" ================ Persistent Undo ==================
+" Keep undo history across sessions, by storing in file.
+" Only works all the time.
+if has('persistent_undo')
+  silent !mkdir ~/.vim/backups > /dev/null 2>&1
+  set undodir=~/.vim/backups
+  set undofile
+endif
 
-" Tab characters entered will be changed to spaces
-set expandtab
+" Local config
+if filereadable($HOME . "/.vimrc.local")
+  source ~/.vimrc.local
+endif
 
-" Number of space characters inserted for indentation
-set shiftwidth=2
-set softtabstop=2
+set background=dark " cause I'm not a psychopath
 
-" Avoid creation of * .ext files
-set nowritebackup
-set nobackup
-set noswapfile
-
-" Automatically read changes
-set autoread
-
-" Hidden buffer instead of close
-set hidden
-
-" Increase history
-set history=1000
-
-" No annoying sound on errors
-set noerrorbells
-set novisualbell
-set t_vb=
-set tm=500
-
-" Multi cursors mapping
-let g:multi_cursor_next_key='<C-n>'
-let g:multi_cursor_prev_key='<C-p>'
-let g:multi_cursor_quit_key='<Esc>'
-let g:multi_cursor_skip_key='<C-x>'
-
-" Airline
-let g:airline_powerline_fonts = 1
-
-" Remove all trailing whitespaces at save
-autocmd BufWritePre * :%s/\s\+$//e
-
-" Space as leader
-map <space> <leader>
-
-" Window buffer navigation
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
-
-" ctrl c + ctrl v
-vmap <C-c> "+y
-vmap <C-v> c<ESC>"+gP
-
-" fzf.vim mappings
-nnoremap <C-g> :Rg<CR>
-nnoremap <C-p> :GFiles<CR>
-
-" NerdTree mappings
-map <leader>t :NERDTreeToggle<CR>
-
-" vim-test mappings
-nmap <silent> <leader>tn :TestNearest<CR>
-nmap <silent> <leader>tf :TestFile<CR>
-nmap <silent> <leader>ta :TestSuite<CR>
-
-" elixir auto `mix format` on save
-let g:mix_format_on_save = 1
-let g:mix_format_silent_errors = 1
-
-" Disable vim recording
-map q <Nop>
-
-" coc.nvim - use <tab> for trigger completion and navigate to the next complete item
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
+" set your colorscheme on ~/.vimrc.local
+if !exists('g:colors_name') || g:colors_name == 'default'
+  try
+    colorscheme gruvbox
+  catch
+  endtry
+endif

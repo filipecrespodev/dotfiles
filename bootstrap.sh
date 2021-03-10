@@ -18,8 +18,22 @@ openfortivpn \
 ca-certificates \
 gnupg-agent \
 software-properties-common \
-brave-browser
+brave-browser \
+tmux
 
-# disable sound in terinal 
+# disable sound in terinal
 sudo gsettings set org.gnome.desktop.sound event-sounds false
 gsettings set org.gnome.desktop.sound event-sounds false
+
+# https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
+mv 'SomeFont for Powerline.otf' ~/.local/share/fonts/
+
+# clone
+git clone https://github.com/powerline/fonts.git --depth=1
+# install
+cd fonts
+./install.sh
+# clean-up a bit
+cd ..
+rm -rf fonts
+

@@ -1,10 +1,9 @@
 export ZSH=$HOME/.oh-my-zsh
+
 # https://github.com/halfo/lambda-mod-zsh-theme
 # ZSH_THEME="lambda-mod"
-# ZSH_THEME="af-magic"
 
 ZSH_THEME="spaceship"
-
 SPACESHIP_PROMPT_PREFIXES_SHOW=true
 SPACESHIP_PROMPT_SUFFIXES_SHOW=true
 SPACESHIP_PACKAGE_SHOW=false
