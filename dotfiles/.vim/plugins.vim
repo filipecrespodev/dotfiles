@@ -1,4 +1,3 @@
-
 if &compatible
   set nocompatible
 end

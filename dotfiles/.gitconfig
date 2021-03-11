@@ -1,18 +1,20 @@
 [alias]
 	c = checkout
-	c- = checkout -
 	cb = checkout -b
 	cm = checkout master
 
 	p = pull origin
 
-	co = commit -am
+	co = commit
 	cae = commit --amend
 	ca = commit --amend --no-edit
+	cf = commit --fixup
+	wip = commit -am 'wip'
 
 	a = add .
 
 	rm = rebase master
+	rim = rebase -i master
 	rc = rebase --continue
 
 	s = status
@@ -20,21 +22,19 @@
 	b = branch
 
 	f = fetch
+	fa = fetch --all
 
-	wip = commit -am 'wip'
-	rm = reset --hard master
 	changelog = log --reverse --pretty=format:'- %B' master..HEAD
+
+	l = log -n 1 --pretty=format:'%h %s' --
 	lg = log --graph --pretty=format:'[%cn]%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 
-	d = diff --color
 	r = reset --hard HEAD
-	pf = push --force-with-lease
-	rim = rebase -i master
-	h = rev-parse HEAD
-	cf = commit --fixup
-	l = log -n 1 --pretty=format:'%h %s' --
+	rm = reset --hard master
 	r1 = reset HEAD^1
 	rollback = reset --soft HEAD~1
+
+	d = diff --color
 
 [user]
 	name = Filipe Crespo

@@ -34,8 +34,6 @@ SPACESHIP_PROMPT_ORDER=(
   char          # Prompt character
 )
 
-
-
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
