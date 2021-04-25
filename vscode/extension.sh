@@ -12,7 +12,7 @@ code --install-extension sporto.rails-go-to-spec
 code --install-extension WakaTime.vscode-wakatime
 code --install-extension pkief.material-icon-themes
 code --install-extension ms-azuretools.vscode-docker
-code --install-extension felixfbecker.php-intellisense 
+code --install-extension felixfbecker.php-intellisense
 code --install-extension davidanson.vscode-markdownlint
 code --install-extension MS-vsliveshare.vsliveshare-pack
 code --install-extension CoenraadS.bracket-pair-colorizer

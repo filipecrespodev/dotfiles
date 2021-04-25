@@ -24,6 +24,13 @@
     "scm.alwaysShowRepositories": true,
     "diffEditor.ignoreTrimWhitespace": false,
     "jupyter.askForKernelRestart": false,
-    "jupyter.sendSelectionToInteractiveWindow": true
+    "jupyter.sendSelectionToInteractiveWindow": true,
+    "workbench.editorAssociations": [
+        {
+            "viewType": "jupyter.notebook.ipynb",
+            "filenamePattern": "*.ipynb"
+        }
+    ],
+    "window.zoomLevel": -1
 }
 
