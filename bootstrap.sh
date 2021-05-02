@@ -1,5 +1,11 @@
 #/bin/bash
 
+apt update -y && apt upgrade -y
+
+apt install curl \
+vim \
+zsh \
+
 add-apt-repository ppa:gnome-terminator
 add-apt-repository ppa:peek-developers/stable
 
@@ -9,23 +15,19 @@ echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable ma
 apt update -y && apt upgrade -y
 
 apt install curl \
-vim \
-zsh \
-terminator \
+tmux \
 peek \
-apt-transport-https \
-openfortivpn \
-ca-certificates \
 gnupg-agent \
-software-properties-common \
+openfortivpn \
 brave-browser \
-tmux
+ca-certificates \
+apt-transport-https \
+software-properties-common \
 
-# disable sound in terinal
 sudo gsettings set org.gnome.desktop.sound event-sounds false
 gsettings set org.gnome.desktop.sound event-sounds false
 
 wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf  ~/.local/share/fonts/
 
-git clone https://github.com/powerline/fonts.git --depth=1 /tmp/
-/tmp/fonts/install.sh
+git clone https://github.com/powerline/fonts.git --depth=1 ~/
+~/fonts/install.sh

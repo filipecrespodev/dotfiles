@@ -404,3 +404,4 @@ tmux_conf_update_plugins_on_reload=true
 #
 # "$@"
 # # /!\ do not remove the previous line
+run-shell /home/filipecrespo/.tmux-battery/battery.tmux

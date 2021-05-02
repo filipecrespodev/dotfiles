@@ -1,7 +1,6 @@
 export ZSH=$HOME/.oh-my-zsh
 
 # https://github.com/halfo/lambda-mod-zsh-theme
-# ZSH_THEME="lambda-mod"
 
 ZSH_THEME="spaceship"
 SPACESHIP_PROMPT_PREFIXES_SHOW=true
@@ -54,3 +53,6 @@ export PATH=$HOME/.asdf/shims:$PATH
 export ERL_AFLAGS="-kernel shell_history enabled"
 
 source ~/.aliasesrc
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
