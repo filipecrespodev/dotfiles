@@ -14,17 +14,26 @@ gpg2 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D69
 sudo apt-get install -y silversearcher-ag \
   zsh \
   git \
+  tmux \
+  peek \
   xclip \
   bison \
   vim-gtk3 \
   dconf-cli \
   pkg-config \
+  gnupg-agent \
   ncurses-dev \
   libevent-dev \
-  build-essential
-
+  openfortivpn \
+  brave-browser \
+  build-essential \
+  ca-certificates \
+  apt-transport-https \
+  software-properties-common
 
 ubuntu.sh
+
+
 fonts.sh
 
 vim -N \"+set hidden\" \"+syntax on\" +PlugInstall +qall

@@ -1,5 +1,4 @@
 {
-    "workbench.editor.enablePreview": false,
     "editor.minimap.enabled": false,
     "ruby.codeCompletion": "rcodetools",
     "ruby.intellisense": "rubyLocate",
@@ -12,6 +11,7 @@
     "editor.tabSize": 2,
     "explorer.confirmDelete": false,
     "launch": {
+
 
 
 
@@ -31,6 +31,9 @@
             "filenamePattern": "*.ipynb"
         }
     ],
-    "window.zoomLevel": -2
+    // "workbench.editor.showTabs": false,
+    "workbench.editor.enablePreview": false,
+    "editor.codeActionsOnSave": null,
+    "editor.wordWrap": "on"
 }
 
