@@ -17,7 +17,7 @@
 
     },
     "terminal.integrated.shell.osx": "/bin/zsh",
-    "workbench.colorTheme": "Solarized Dark",
+    "workbench.colorTheme": "Solarized Light",
     "open-in-browser.default": "firefox",
     "editor.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
     "editor.fontLigatures": true,
@@ -34,6 +34,8 @@
     // "workbench.editor.showTabs": false,
     "workbench.editor.enablePreview": false,
     "editor.codeActionsOnSave": null,
-    "editor.wordWrap": "on"
+    "editor.wordWrap": "on",
+    "files.simpleDialog.enable": true,
+    "window.zoomLevel": -1
 }
 

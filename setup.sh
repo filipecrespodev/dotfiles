@@ -17,4 +17,7 @@ ln -s $PWD/vscode/settings.json ~/.config/Code/User/settings.json
 
 source $bashrc_file
 
+echo 'Install Vim Plugins'
+vim -N \"+set hidden\" \"+syntax on\" +PlugInstall +qall
+
 echo "done!"
