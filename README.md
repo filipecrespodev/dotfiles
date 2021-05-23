@@ -2,34 +2,18 @@
 
 This project contains my settings to develop on ubuntu. After running the scripts hambiente is ready for development with Docker, VsCode, Vim, Terminator and ZSH.
 
-## Clone
+## Requirements
+
 
 ```sh
-git clone
+apt install curl
 ```
 
-## Bootstrap
-
-The bootstrap install this applications:
-
-* [Docker](https://docs.docker.com/engine/install/ubuntu/)
-* [Docker-compose](https://docs.docker.com/compose/install/)
-* [Brave](https://code.visualstudio.com/download)
-* [Terminator](https://code.visualstudio.com/download)
-* [VPN](https://code.visualstudio.com/download)
-* [Peek](https://code.visualstudio.com/download)
-* [Zsh](https://code.visualstudio.com/download)
-* [Vim Plugins](https://code.visualstudio.com/download)
+## Install
 
 ```sh
-git clone
-./bootstrap.sh
-```
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/filipecrespodev/dotfiles/master/index.sh)"
 
-## Setup
-
-```sh
-./setup.sh
 ```
 
 ## License

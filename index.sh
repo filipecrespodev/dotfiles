@@ -17,26 +17,7 @@ sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc)
 update_upgrade()
 
 echo 'Install prograns:'
-echo 'Install zsh'
-echo 'Install vim'
-echo 'Install git'
-echo 'Install tmux'
-echo 'Install xclip'
-echo 'Install bison'
-echo 'Install ripgrep'
-echo 'Install dconf-cli'
-echo 'Install pkg-config'
-echo 'Install gnupg-agent'
-echo 'Install ncurses-dev'
-echo 'Install libevent-dev'
-echo 'Install openfortivpn'
-echo 'Install brave-browser'
-echo 'Install fonts-firacode'
-echo 'Install build-essential'
-echo 'Install ca-certificates'
-echo 'Install silversearcher-ag'
-echo 'Install apt-transport-https'
-echo 'Install software-properties-common'
+echo 'zsh, vim, git, tmux, xclip, bison, ripgrep, dconf-cli, pkg-config, gnupg-agent, ncurses-dev, libevent-dev, openfortivpn, brave-browser, fonts-firacode, build-essential, ca-certificates, silversearcher-ag, apt-transport-https, software-properties-common'
 
 sudo apt-get install -y \
   zsh \
@@ -59,7 +40,6 @@ sudo apt-get install -y \
   silversearcher-ag \
   apt-transport-https \
   software-properties-common
-
 
 echo 'Install plug vim'
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
@@ -93,4 +73,5 @@ mkdir -p ~/Workspace/My
 echo 'Clone .dotfile project'
 git clone git@github.com:filipecrespodev/dotfiles.git  ~/Workspace/My/
 
+echo 'Run dotfiles'
 cd ~/Workspace/My/dotfiles && ./setup.sh
