@@ -35,7 +35,6 @@
     "workbench.editor.enablePreview": false,
     "editor.codeActionsOnSave": null,
     "editor.wordWrap": "on",
-    "files.simpleDialog.enable": true,
-    "window.zoomLevel": -1
+    "files.simpleDialog.enable": true
 }
 

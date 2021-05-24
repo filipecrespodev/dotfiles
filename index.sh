@@ -5,7 +5,7 @@ function update_upgrade(){
   sudo apt update -y && sudo apt upgrade -y
 }
 
-update_upgrade()
+update_upgrade
 
 echo 'Add repositories'
 sudo apt-get install -y software-properties-common gnupg2
@@ -14,13 +14,11 @@ curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt
 echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
 sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"
 
-update_upgrade()
+update_upgrade
 
-echo 'Install prograns:'
-echo 'zsh, vim, git, tmux, xclip, bison, ripgrep, dconf-cli, pkg-config, gnupg-agent, ncurses-dev, libevent-dev, openfortivpn, brave-browser, fonts-firacode, build-essential, ca-certificates, silversearcher-ag, apt-transport-https, software-properties-common'
+echo 'Install prograns: zsh, vim, git, tmux, xclip, bison, ripgrep, dconf-cli, pkg-config, gnupg-agent, ncurses-dev, libevent-dev, openfortivpn, brave-browser, fonts-firacode, build-essential, ca-certificates, silversearcher-ag, apt-transport-https, software-properties-common'
 
-sudo apt-get install -y \
-  zsh \
+sudo apt-get install -y zsh \
   vim \
   git \
   tmux \
@@ -62,8 +60,10 @@ gsettings set org.gnome.desktop.sound event-sounds false
 
 echo 'Install oh-my-zsh'
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
 echo 'Install Asdf'
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+
 echo 'Add Lambda Mod Theme'
 wget -P ~/.oh-my-zsh/themes https://raw.githubusercontent.com/halfo/lambda-mod-zsh-theme/master/lambda-mod.zsh-theme
 
