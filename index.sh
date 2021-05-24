@@ -65,7 +65,11 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 echo 'Install Asdf'
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf
 echo 'Add Lambda Mod Theme'
-wget -P /home/filipecrespo/.oh-my-zsh/themes https://raw.githubusercontent.com/halfo/lambda-mod-zsh-theme/master/lambda-mod.zsh-theme
+wget -P ~/.oh-my-zsh/themes https://raw.githubusercontent.com/halfo/lambda-mod-zsh-theme/master/lambda-mod.zsh-theme
+
+echo 'Install code'
+wget -P ~/Download https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64
+cd ~/Download && apt install
 
 echo 'Create my work dir'
 mkdir -p ~/Workspace/My
