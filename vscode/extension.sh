@@ -20,3 +20,5 @@ code --install-extension CoenraadS.bracket-pair-colorizer
 code --install-extension christian-kohler.npm-intellisense
 code --install-extension streetsidesoftware.code-spell-checker
 code --install-extension ybaumes.highlight-trailing-white-spaces
+code --install-extension felixfbecker.php-debug
+
