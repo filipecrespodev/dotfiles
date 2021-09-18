@@ -7,7 +7,6 @@
         105
     ],
     "explorer.confirmDragAndDrop": false,
-    "workbench.iconTheme": "material-icon-theme",
     "editor.tabSize": 2,
     "explorer.confirmDelete": false,
     "launch": {
@@ -15,9 +14,10 @@
 
 
 
+
     },
     "terminal.integrated.shell.osx": "/bin/zsh",
-    "workbench.colorTheme": "Solarized Light",
+    "workbench.colorTheme": "Solarized Dark",
     "open-in-browser.default": "firefox",
     "editor.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
     "editor.fontLigatures": true,
@@ -25,16 +25,19 @@
     "diffEditor.ignoreTrimWhitespace": false,
     "jupyter.askForKernelRestart": false,
     "jupyter.sendSelectionToInteractiveWindow": true,
-    "workbench.editorAssociations": [
-        {
-            "viewType": "jupyter.notebook.ipynb",
-            "filenamePattern": "*.ipynb"
-        }
-    ],
-    // "workbench.editor.showTabs": false,
-    "workbench.editor.enablePreview": false,
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
+    },
     "editor.codeActionsOnSave": null,
     "editor.wordWrap": "on",
-    "files.simpleDialog.enable": true
+    "files.simpleDialog.enable": true,
+    "gitlens.defaultDateFormat": null,
+    "gitlens.defaultDateShortFormat": null,
+    "gitlens.defaultTimeFormat": null,
+    "diffEditor.maxComputationTime": 0,
+    "workbench.editor.showTabs": true,
+    "breadcrumbs.enabled": false,
+    "workbench.iconTheme": "vscode-icons",
+    "window.zoomLevel": 1
 }
 

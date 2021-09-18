@@ -23,3 +23,5 @@ export PATH=$HOME/.asdf/shims:$PATH
 export ERL_AFLAGS="-kernel shell_history enabled"
 
 source ~/.aliasesrc
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
