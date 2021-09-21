@@ -38,6 +38,6 @@
     "workbench.editor.showTabs": true,
     "breadcrumbs.enabled": false,
     "workbench.iconTheme": "vscode-icons",
-    "window.zoomLevel": 1
+    "window.zoomLevel": 2
 }
 
