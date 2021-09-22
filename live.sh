@@ -1,10 +1,13 @@
 #!/bin/bash
 
-sudo add-apt-repository ppa:obsproject/obs-studio
+add-apt-repository ppa:obsproject/obs-studio
 
-sudo apt install ffmpeg \
+apt install ffmpeg \
   v4l2loopback-dkms
 
-sudo apt update
+apt update
 
-sudo apt install obs-studio
+apt install obs-studio
+
+ln -s $PWD/live/twitch ~/.config/obs-studio/basic/profiles
+ln -s $PWD/live/twitch.json ~/.config/obs-studio/basic/scenes/

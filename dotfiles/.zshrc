@@ -7,18 +7,14 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 # EDITOR
-
 export VISUAL=vim
 export EDITOR=$VISUAL
 
 # ASDF
-
 export PATH=$HOME/.asdf/shims:$PATH
 
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
-
-# Erlang/Elixir IEx history
 
 export ERL_AFLAGS="-kernel shell_history enabled"
 

@@ -2,6 +2,7 @@
 	c = checkout
 	cb = checkout -b
 	cm = checkout master
+	cma = checkout main
 
 	p = pull origin
 

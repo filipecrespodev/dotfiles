@@ -38,6 +38,8 @@
     "workbench.editor.showTabs": true,
     "breadcrumbs.enabled": false,
     "workbench.iconTheme": "vscode-icons",
-    "window.zoomLevel": 2
+    "window.zoomLevel": 1,
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue"
 }
 
