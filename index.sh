@@ -1,4 +1,10 @@
 #!/bin/bash
+# TODO Install VLC
+# TODO Install Vsode
+# TODO Install OBS Studio
+# TODO Install TWAEKS
+# TODO Install Peek
+
 
 function update_upgrade(){
   echo 'Update and Upgrade'
