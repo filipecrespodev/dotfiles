@@ -21,3 +21,5 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 source ~/.aliasesrc
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export PATH="$HOME/.poetry/bin:$PATH"

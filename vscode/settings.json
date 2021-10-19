@@ -7,17 +7,11 @@
         105
     ],
     "explorer.confirmDragAndDrop": false,
-    "editor.tabSize": 2,
+    "editor.tabSize": 4,
     "explorer.confirmDelete": false,
-    "launch": {
-
-
-
-
-
-    },
+    "launch": {},
     "terminal.integrated.shell.osx": "/bin/zsh",
-    "workbench.colorTheme": "Default Dark+",
+    "workbench.colorTheme": "Solarized Dark",
     "open-in-browser.default": "firefox",
     "editor.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
     "editor.fontLigatures": true,
@@ -40,6 +34,35 @@
     "workbench.iconTheme": "vscode-icons",
     "editor.suggestSelection": "first",
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-    "window.zoomLevel": -2
+    "[dart]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.rulers": [
+            80
+        ],
+        "editor.selectionHighlight": false,
+        "editor.suggest.snippetsPreventQuickSuggestions": false,
+        "editor.suggestSelection": "first",
+        "editor.tabCompletion": "onlySnippets",
+        "editor.wordBasedSuggestions": false
+    },
+    "window.zoomLevel": 1,
+    "editor.formatOnSave": true,
+    "python.pythonPath": "./workspace_venv/bin/python3",
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": [
+        "--line-length=150"
+    ],
+    "python.sortImports.args": [
+        "--profile",
+        "black"
+    ],
+    "[python]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        }
+    },
+    "files.associations": {
+        "*.toml": "ini",
+    },
 }
-

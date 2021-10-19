@@ -4,7 +4,7 @@
 # TODO Install OBS Studio
 # TODO Install TWAEKS
 # TODO Install Peek
-
+# TODO bloomrpc-1.4.0-x86_64.AppImage
 
 function update_upgrade(){
   echo 'Update and Upgrade'
@@ -44,6 +44,14 @@ sudo apt-get install -y zsh \
   silversearcher-ag \
   apt-transport-https \
   software-properties-common
+
+sudo snap install drawio \
+  flutter --classic \
+  telegram-desktop \
+  slack --classic
+
+flatpak install flathub rest.insomnia.Insomnia \
+  com.spotify.Client
 
 echo 'Install plug vim'
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
