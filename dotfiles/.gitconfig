@@ -1,7 +1,7 @@
 [alias]
 	c = checkout
 	cb = checkout -b
-	cm = checkout master
+	cm = checkout main
 	cma = checkout main
 
 	p = pull origin
@@ -14,8 +14,8 @@
 
 	a = add .
 
-	rm = rebase master
-	rim = rebase -i master
+	rm = rebase main
+	rim = rebase -i main
 	rc = rebase --continue
 
 	s = status
@@ -25,13 +25,13 @@
 	f = fetch
 	fa = fetch --all
 
-	changelog = log --reverse --pretty=format:'- %B' master..HEAD
+	changelog = log --reverse --pretty=format:'- %B' main..HEAD
 
 	l = log -n 1 --pretty=format:'%h %s' --
 	lg = log --graph --pretty=format:'[%cn]%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 
 	r = reset --hard HEAD
-	rm = reset --hard master
+	rm = reset --hard main
 	r1 = reset HEAD^1
 	rollback = reset --soft HEAD~1
 
@@ -39,11 +39,11 @@
 
 [user]
 	name = Filipe Crespo
-	email = filipe.crespo@locaweb.com.br
+	email = filipe.crespo@faci.ly
 
 [github]
 	user = Filipe Crespo
-	email = filipesoares.crespo@gmail.com
+	email = filipe.crespo@faci.ly
 
 [apply]
   whitespace = nowarn
@@ -93,5 +93,6 @@
   oldHighlight = "red bold 52"
   newNormal = "green bold"
   newHighlight = "green bold 22"
+
 [init]
 	defaultBranch = main

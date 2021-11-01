@@ -1,68 +1,14 @@
 {
     "editor.minimap.enabled": false,
-    "ruby.codeCompletion": "rcodetools",
-    "ruby.intellisense": "rubyLocate",
     "editor.rulers": [
         80,
         105
     ],
-    "explorer.confirmDragAndDrop": false,
-    "editor.tabSize": 4,
-    "explorer.confirmDelete": false,
-    "launch": {},
-    "terminal.integrated.shell.osx": "/bin/zsh",
-    "workbench.colorTheme": "Solarized Dark",
-    "open-in-browser.default": "firefox",
-    "editor.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.tabSize": 2,
     "editor.fontLigatures": true,
-    "scm.alwaysShowRepositories": true,
-    "diffEditor.ignoreTrimWhitespace": false,
-    "jupyter.askForKernelRestart": false,
-    "jupyter.sendSelectionToInteractiveWindow": true,
-    "workbench.editorAssociations": {
-        "*.ipynb": "jupyter.notebook.ipynb"
-    },
-    "editor.codeActionsOnSave": null,
+    "editor.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
     "editor.wordWrap": "on",
-    "files.simpleDialog.enable": true,
-    "gitlens.defaultDateFormat": null,
-    "gitlens.defaultDateShortFormat": null,
-    "gitlens.defaultTimeFormat": null,
-    "diffEditor.maxComputationTime": 0,
-    "workbench.editor.showTabs": true,
-    "breadcrumbs.enabled": false,
-    "workbench.iconTheme": "vscode-icons",
-    "editor.suggestSelection": "first",
-    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-    "[dart]": {
-        "editor.formatOnSave": true,
-        "editor.formatOnType": true,
-        "editor.rulers": [
-            80
-        ],
-        "editor.selectionHighlight": false,
-        "editor.suggest.snippetsPreventQuickSuggestions": false,
-        "editor.suggestSelection": "first",
-        "editor.tabCompletion": "onlySnippets",
-        "editor.wordBasedSuggestions": false
-    },
-    "window.zoomLevel": 1,
-    "editor.formatOnSave": true,
-    "python.pythonPath": "./workspace_venv/bin/python3",
-    "python.formatting.provider": "black",
-    "python.formatting.blackArgs": [
-        "--line-length=150"
-    ],
-    "python.sortImports.args": [
-        "--profile",
-        "black"
-    ],
-    "[python]": {
-        "editor.codeActionsOnSave": {
-            "source.organizeImports": true
-        }
-    },
-    "files.associations": {
-        "*.toml": "ini",
-    },
+    "editor.mouseWheelZoom": true,
+    "liveServer.settings.donotShowInfoMsg": true,
+    "window.zoomLevel": -1,
 }

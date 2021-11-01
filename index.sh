@@ -3,7 +3,6 @@
 # TODO Install Vsode
 # TODO Install OBS Studio
 # TODO Install TWAEKS
-# TODO Install Peek
 # TODO bloomrpc-1.4.0-x86_64.AppImage
 
 function update_upgrade(){
@@ -28,6 +27,7 @@ sudo apt-get install -y zsh \
   vim \
   git \
   tmux \
+  peek \
   xclip \
   bison \
   ripgrep \
@@ -42,16 +42,15 @@ sudo apt-get install -y zsh \
   build-essential \
   ca-certificates \
   silversearcher-ag \
+  chrome-gnome-shell \
   apt-transport-https \
   software-properties-common
 
 sudo snap install drawio \
   flutter --classic \
   telegram-desktop \
-  slack --classic
-
-flatpak install flathub rest.insomnia.Insomnia \
-  com.spotify.Client
+  slack --classic \
+  spotify
 
 echo 'Install plug vim'
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
