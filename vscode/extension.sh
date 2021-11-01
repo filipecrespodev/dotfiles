@@ -15,7 +15,6 @@ code --install-extension mikestead.dotenv
 # Markdown
 code --install-extension davidanson.vscode-markdownlint
 # Python
-code --install-extension ms-python.python
 code --install-extension ms-toolsai.jupyter
 code --install-extension ms-python.vscode-pylance
 code --install-extension damildrizzy.fastapi-snippets
@@ -25,11 +24,6 @@ code --install-extension octref.vetur
 code --install-extension eg2.vscode-npm-script
 code --install-extension christian-kohler.npm-intellisense
 code --install-extension christian-kohler.path-intellisense
-# Php
-code --install-extension emallin.phpunit
-code --install-extension felixfbecker.php-debug
-code --install-extension felixfbecker.php-intellisense
-# Ruby
-code --install-extension rebornix.ruby
-code --install-extension wingrunr21.vscode-ruby
-code --install-extension sporto.rails-go-to-spec
+# Git 
+code --install-extension github.copilot
+
