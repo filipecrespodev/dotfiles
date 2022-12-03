@@ -10,5 +10,18 @@
     "editor.wordWrap": "on",
     "editor.mouseWheelZoom": true,
     "liveServer.settings.donotShowInfoMsg": true,
-    "window.zoomLevel": -1,
+    "window.zoomLevel": 0,
+    "json.schemas": [
+    
+    ],
+    "git.confirmSync": false,
+    "git.autofetch": true,
+    "git.enableSmartCommit": true,
+    "editor.guides.bracketPairs": "active",
+    "editor.formatOnSave": true,
+    "editor.gotoLocation.alternativeReferenceCommand": "editor.action.goToReferences",
+    "editor.gotoLocation.alternativeImplementationCommand": "editor.action.goToReferences",
+    "[python]": {
+        "editor.formatOnType": true
+    },
 }
