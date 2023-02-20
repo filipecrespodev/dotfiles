@@ -1,11 +1,7 @@
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
-
-alias nibbler='ssh -i ~/.ssh/id_rsa_gateway _filcrespo@nibbler0006.linux.locaweb.com.br'
-alias vpn='sudo openfortivpn'
-alias psg="ps aux | grep "
 alias c="code ."
-alias r="rubymine ."
-alias p="pycharm-professional ."
 alias work="cd ~/Workspace/Work"
 alias my="cd ~/Workspace/My"
-alias add="ssh-add ~/.ssh/id_rsa_gateway"
+alias f="cd ~/Workspace/Facily"
+alias t="cd ~/Workspace/Trevo"
+alias vc="python3 -m venv .venv"
+alias va="source .venv/bin/activate"
