@@ -2,6 +2,8 @@
 
 This project contains my settings to develop on ubuntu. After running the scripts hambiente is ready for development with Docker, VsCode, Vim, Terminator and ZSH.
 
+Projeto desatualizado!
+
 ## Requirements
 
 
