@@ -1,14 +1,21 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
-# Path to your Oh My Zsh installation.
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
-# load a random theme each time Oh My Zsh is loaded, in which case,
+# load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -38,7 +45,7 @@ ZSH_THEME="robbyrussell"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -60,7 +67,7 @@ ZSH_THEME="robbyrussell"
 # "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # or set a custom format using the strftime function format specifications,
 # see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS="dd/mm/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -70,10 +77,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-plugins=(git 1password node nodenv fzf helm aws python zsh-autosuggestions zsh-syntax-highlighting zsh-completions docker)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-completions docker)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -94,60 +98,75 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# Set personal aliases, overriding those provided by Oh My Zsh libs,
-# plugins, and themes. Aliases can be placed here, though Oh My Zsh
-# users are encouraged to define aliases within a top-level file in
-# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
-# - $ZSH_CUSTOM/aliases.zsh
-# - $ZSH_CUSTOM/macos.zsh
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#
-#
-
-alias c="code ."
-alias work="cd ~/Workspace/Work"
-alias my="cd ~/Workspace/My"
-alias f="cd ~/Workspace/Facily"
-alias t="cd ~/Workspace/Trevo"
-alias vc="python3 -m venv .venv"
-alias va="source .venv/bin/activate"
-alias bir='black . & isort . & ruff check app/ --fix'
+alias cl="clear"
+alias c="code"
+alias vc="python3.11 -m venv venv"
+alias vc12="python3.12 -m venv venv"
+alias va="source venv/bin/activate"
+alias gca="git commit --amend --allow-empty"
+alias gl="git log --graph --pretty=format:'[%cn]%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+alias localkafka="kubectl port-forward svc/kafka-trevo 9092:9092 -n kafka"
+alias localmongo="kubectl port-forward svc/trevo-mongodb 27017:27017 -n mongo"
+alias localmongoananke="kubectl port-forward deployment/feature-flag-mongodb 27017:27017 -n mongo"
+alias gk="gitkraken"
+alias bir="black . & isort . & ruff check app/ --fix"
 
 change_env() {
-  cp ~/.kube/config_$1 ~/.kube/config
-  cp ~/.aws/credentials_$1 ~/.aws/credentials
+	cp ~/.kube/config_$1 ~/.kube/config
+	cp ~/.aws/credentials_$1 ~/.aws/credentials
 }
 
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+rollback() {
+  inputHeadValue=${2:--1}
+  goToHead=${inputHeadValue:1}
 
-export PNPM_HOME="/home/fcrespo/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
+  git fetch --all
 
+  awsAccount=$(aws sts get-caller-identity | grep -oP '"Account": "\K[^"]+')
+  echo AWS Account: $awsAccount
 
-eval "$(oh-my-posh init zsh)"
-eval "$(oh-my-posh init zsh --config /home/fcrespo/Workspace/My/dotfiles/theme/theme.omp.json)"
+  container=$(git remote -v | grep fetch | awk -F'[/.]' '{print $(NF-1)}')
+  namespace=$(kubectl get deployments --all-namespaces | grep $container | awk '{print $1}')
+  commitSHA=$(git rev-parse origin/$1~$goToHead)
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+  echo Rolling back to commit $commitSHA from $1
 
-source <(kubectl completion zsh)
+  kubectl set image -n $namespace deployment/$container $container=$awsAccount.dkr.ecr.us-east-1.amazonaws.com/$container:$commitSHA
 
-autoload -Uz compinit
-compinit
+  echo Rollback completed
+}
 
-export PATH=$HOME/.local/bin:$PATH
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/smoow/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/smoow/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/smoow/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/smoow/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+export PATH="$PATH:/snap/bin"
 
 # pnpm
-export PNPM_HOME="/home/fcrespo/.local/share/pnpm"
+export PNPM_HOME="/home/smoow/.local/share/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
