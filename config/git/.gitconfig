@@ -1,0 +1,98 @@
+[alias]
+	c = checkout
+	cb = checkout -b
+	cm = checkout main
+	cma = checkout main
+
+	p = pull origin
+
+	co = commit
+	cae = commit --amend
+	ca = commit --amend --no-edit
+	cf = commit --fixup
+	wip = commit -am 'wip'
+
+	a = add .
+
+	rm = rebase main
+	rim = rebase -i main
+	rc = rebase --continue
+
+	s = status
+
+	b = branch
+
+	f = fetch
+	fa = fetch --all
+
+	changelog = log --reverse --pretty=format:'- %B' main..HEAD
+
+	l = log -n 1 --pretty=format:'%h %s' --
+	lg = log --graph --pretty=format:'[%cn]%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+
+	r = reset --hard HEAD
+	rm = reset --hard main
+	r1 = reset HEAD^1
+	rollback = reset --soft HEAD~1
+
+	d = diff --color
+
+[user]
+	name = Filipe Crespo
+	email = filipe.crespo@faci.ly
+
+[github]
+	user = Filipe Crespo
+	email = filipe.crespo@faci.ly
+
+[apply]
+  whitespace = nowarn
+
+[branch]
+  autosetupmerge = true
+	autosetuprebase = always
+
+[merge]
+  ff = no
+  commit = no
+  tool = meld
+  summary = true
+  verbosity = 1
+  tool = vimdiff
+
+[pull]
+	rebase = preserve
+
+[push]
+	default = current
+
+[core]
+	editor = vim
+	autocrlf = false
+  excludesfile = ~/.gitignore
+
+[rebase]
+	autosquash = true
+
+[advice]
+  statusHints = false
+
+[color]
+  ui = true
+
+[color "diff"]
+  meta = "yellow bold"
+  commit = "green bold"
+  frag = "magenta bold"
+  old = "red bold"
+  new = "green bold"
+  whitespace = "red reverse"
+
+[color "diff-highlight"]
+  oldNormal = "red bold"
+  oldHighlight = "red bold 52"
+  newNormal = "green bold"
+  newHighlight = "green bold 22"
+
+[init]
+	defaultBranch = main

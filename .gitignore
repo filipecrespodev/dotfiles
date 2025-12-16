@@ -1,1 +1,45 @@
+# Backups
+*.backup
+*.backup.*
+*.bak
+*.old
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Local customizations
+local/
+*.local
+!config/tmux/.tmux.conf.local
+
+# Sensitive data
+.env
+.env.*
+*_history
+.secrets
+
+# IDE
+.idea/
 .vscode/
+*.code-workspace
+
+# Logs
+*.log
+
+# Test files
+teste
+test_*
+
+# Old structure (will be removed)
+dotfiles/
+installers/
+vscode/
+live/
+theme/
+index.sh
+setup.sh
+zshrc

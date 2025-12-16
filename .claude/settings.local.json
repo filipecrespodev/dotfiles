@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs ls:*)",
+      "Bash(find:*)",
+      "Bash(du:*)",
+      "Bash(tree:*)",
+      "Bash(sudo add-apt-repository:*)",
+      "Bash(sudo apt-get update:*)",
+      "Bash(chmod:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
