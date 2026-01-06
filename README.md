@@ -49,6 +49,7 @@ Quando executar `./bootstrap.sh`, você poderá escolher:
 ## O que será instalado?
 
 ### Pacotes Essenciais (Standard/Full)
+- **Homebrew** - Package manager universal (macOS e Linux)
 - Git, Curl, Wget, ZSH, Vim, Tmux
 - Build tools (gcc, make, etc)
 - Ripgrep, FZF, Silver Searcher
@@ -71,10 +72,12 @@ Quando executar `./bootstrap.sh`, você poderá escolher:
 - **Claude Desktop** - Chat AI standalone
 
 **Ferramentas incluídas:**
+- **Homebrew** - Package manager universal (instalado primeiro)
 - **ZSH Plugins** - syntax-highlighting, autosuggestions, completions
 - **FZF** - Fuzzy finder para navegação rápida
 - **ASDF** - Version manager (Node, Python, Go, etc)
 - **Flameshot** - Ferramenta moderna de screenshot
+- **Discord** - Comunicação e colaboração
 - **Docker** (opcional) - Containerização
 
 ### Configurações (Todos os modos)
@@ -113,6 +116,31 @@ dotfiles/
 │   └── test-setup.sh                # Verifica instalação completa
 └── README.md                 # Este arquivo
 ```
+
+## Homebrew - Package Manager
+
+O Homebrew é instalado automaticamente como primeira etapa da instalação. É um package manager universal que funciona tanto em macOS quanto em Linux.
+
+**Vantagens:**
+- ✅ Mesmos comandos em macOS e Linux
+- ✅ Pacotes sempre atualizados
+- ✅ Fácil instalação de ferramentas de desenvolvimento
+- ✅ Gerenciamento centralizado de dependências
+
+**Instalação:**
+- **macOS**: Instalado em `/opt/homebrew` ou `/usr/local`
+- **Linux**: Instalado em `/home/linuxbrew/.linuxbrew` (Linuxbrew)
+
+**Comandos úteis:**
+```bash
+brew install <package>      # Instala um pacote
+brew update                 # Atualiza lista de pacotes
+brew upgrade                # Atualiza todos os pacotes
+brew search <name>          # Busca um pacote
+brew list                   # Lista pacotes instalados
+```
+
+Após a instalação no Linux, o Homebrew é automaticamente configurado no seu `.zshrc`.
 
 ## Theme Engines para ZSH
 
@@ -261,6 +289,43 @@ flameshot full -c          # Captura tela inteira e copia
 flameshot screen -n 0      # Captura monitor específico
 flameshot launcher         # Abre menu de opções
 ```
+
+## Discord
+
+O Discord é instalado automaticamente durante a instalação Standard/Full para facilitar comunicação e colaboração.
+
+### Métodos de Instalação
+
+**Linux:**
+- Via **Snap** (preferencial) - Auto-atualiza automaticamente
+- Via **.deb oficial** (fallback) - Se snap não estiver disponível
+
+**macOS:**
+- Via **Homebrew** - Instalação simplificada
+
+### Instalação Manual
+
+Se quiser instalar apenas o Discord:
+
+```bash
+# Linux (via snap)
+sudo snap install discord
+
+# Linux (via .deb)
+wget -O /tmp/discord.deb "https://discord.com/api/download?platform=linux&format=deb"
+sudo apt-get install /tmp/discord.deb
+
+# macOS
+brew install --cask discord
+```
+
+### Recursos
+
+- 💬 Chat de voz, vídeo e texto
+- 🎮 Integração com jogos
+- 📺 Compartilhamento de tela
+- 🔔 Notificações personalizáveis
+- 🤖 Suporte a bots e integrações
 
 ## Principais Aliases
 

@@ -7,6 +7,52 @@ source "${SCRIPT_DIR}/../scripts/utils.sh"
 
 info "Iniciando instalação de pacotes do sistema..."
 
+# Homebrew - Package manager
+install_homebrew() {
+    if command_exists brew; then
+        info "Homebrew já está instalado"
+        return
+    fi
+
+    if ! ask_yes_no "Deseja instalar Homebrew?" "y"; then
+        return
+    fi
+
+    info "Instalando Homebrew..."
+
+    if is_macos; then
+        # Instala Homebrew no macOS
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        success "Homebrew instalado no macOS"
+    elif is_linux; then
+        # Instala Homebrew no Linux (Linuxbrew)
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+        # Configura PATH para Homebrew no Linux
+        local brew_shellenv
+        if [[ -d "/home/linuxbrew/.linuxbrew" ]]; then
+            brew_shellenv='eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
+        elif [[ -d "$HOME/.linuxbrew" ]]; then
+            brew_shellenv='eval "$($HOME/.linuxbrew/bin/brew shellenv)"'
+        fi
+
+        if [[ -n "$brew_shellenv" ]]; then
+            # Adiciona ao shell atual
+            eval "$brew_shellenv"
+
+            # Adiciona ao .zshrc se não existir
+            if [[ -f "$HOME/.zshrc" ]] && ! grep -q "brew shellenv" "$HOME/.zshrc"; then
+                echo "" >> "$HOME/.zshrc"
+                echo "# Homebrew" >> "$HOME/.zshrc"
+                echo "$brew_shellenv" >> "$HOME/.zshrc"
+            fi
+        fi
+
+        success "Homebrew instalado no Linux"
+        info "Reinicie o terminal ou execute: eval \"\$(brew shellenv)\""
+    fi
+}
+
 # Atualiza repositórios
 update_system() {
     info "Atualizando repositórios do sistema..."
@@ -21,11 +67,9 @@ update_system() {
             sudo pacman -Syu --noconfirm
         fi
     elif is_macos; then
-        if ! command_exists brew; then
-            info "Instalando Homebrew..."
-            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        if command_exists brew; then
+            brew update
         fi
-        brew update
     fi
 
     success "Sistema atualizado"
@@ -283,6 +327,38 @@ install_libreoffice() {
     fi
 }
 
+# Discord
+install_discord() {
+    if command_exists discord; then
+        info "Discord já está instalado"
+        return
+    fi
+
+    if ! ask_yes_no "Deseja instalar Discord?" "y"; then
+        return
+    fi
+
+    info "Instalando Discord..."
+
+    if is_linux; then
+        if command_exists snap; then
+            # Instala via snap (mais fácil e auto-atualiza)
+            sudo snap install discord
+            success "Discord instalado via snap"
+        elif command_exists apt-get; then
+            # Instala via .deb oficial
+            local discord_deb="/tmp/discord.deb"
+            wget -O "$discord_deb" "https://discord.com/api/download?platform=linux&format=deb"
+            sudo apt-get install -y "$discord_deb"
+            rm -f "$discord_deb"
+            success "Discord instalado via .deb"
+        fi
+    elif is_macos; then
+        brew install --cask discord
+        success "Discord instalado via Homebrew"
+    fi
+}
+
 # Snap packages (apenas Linux)
 install_snap_packages() {
     if ! is_linux || ! command_exists snap; then
@@ -310,6 +386,7 @@ install_snap_packages() {
 }
 
 main() {
+    install_homebrew
     update_system
     install_essentials
     install_dev_tools
@@ -317,6 +394,7 @@ main() {
     install_terminal_emulator
     install_flameshot
     install_libreoffice
+    install_discord
     install_optional_apps
     install_snap_packages
 
