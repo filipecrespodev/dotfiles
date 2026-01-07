@@ -1,155 +1,101 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
-
-# Path to your Oh My Zsh installation.
+# -----------------------------
+# 🔧 Oh My Zsh Base
+# -----------------------------
 export ZSH="$HOME/.oh-my-zsh"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time Oh My Zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
-
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-plugins=(git 1password node nodenv fzf helm aws python zsh-autosuggestions zsh-syntax-highlighting zsh-completions docker)
+# Ativar plugins essenciais
+plugins=(
+  git
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+  kubectl
+  docker
+  npm
+  pip
+  python
+  fzf
+)
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
+# -----------------------------
+# 🚀 PATHS e Ferramentas Locais
+# -----------------------------
+export PATH="$HOME/.local/bin:$PATH"
+export PNPM_HOME="$HOME/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
 
-# export MANPATH="/usr/local/man:$MANPATH"
+# -----------------------------
+# 🧠 Oh My Posh (Prompt)
+# -----------------------------
+if command -v oh-my-posh >/dev/null 2>&1; then
+  eval "$(oh-my-posh init zsh --config /home/filipecrespodev/Workspace/My/dotfiles/theme/theme.omp.json)"
+fi
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by Oh My Zsh libs,
-# plugins, and themes. Aliases can be placed here, though Oh My Zsh
-# users are encouraged to define aliases within a top-level file in
-# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
-# - $ZSH_CUSTOM/aliases.zsh
-# - $ZSH_CUSTOM/macos.zsh
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-#
-#
-
+# -----------------------------
+# 🧰 Aliases
+# -----------------------------
 alias c="code ."
 alias work="cd ~/Workspace/Work"
 alias my="cd ~/Workspace/My"
 alias f="cd ~/Workspace/Facily"
 alias t="cd ~/Workspace/Trevo"
-alias vc="python3 -m venv .venv"
+alias vc="python -m venv .venv"
+alias vc12="python3 -m venv .venv"
 alias va="source .venv/bin/activate"
 alias bir='black . & isort . & ruff check app/ --fix'
+alias localkafka='kubectl port-forward statefulset/kafka-controller 9092:9092 -n kafka-trevo'
+alias localvalkey='kubectl port-forward service/valkey-replicas 6379:6379 -n valkey'
+alias localvalkeym='kubectl port-forward service/valkey-primary 6379:6379 -n valkey'
+alias stop_containers='if [ "$(docker ps -q)" ]; then docker stop $(docker ps -q); else echo "No containers are running."; fi'
 
+# Trocar ambiente AWS/K8S rapidamente
 change_env() {
   cp ~/.kube/config_$1 ~/.kube/config
   cp ~/.aws/credentials_$1 ~/.aws/credentials
 }
 
-
+# -----------------------------
+# 🧠 Node, NVM e PNPM
+# -----------------------------
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-export PNPM_HOME="/home/fcrespo/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-
-
-eval "$(oh-my-posh init zsh)"
-eval "$(oh-my-posh init zsh --config /home/fcrespo/Workspace/My/dotfiles/theme/theme.omp.json)"
-
+# -----------------------------
+# 🧩 Autocomplete & Fuzzy Finder
+# -----------------------------
+# fzf (fuzzy search e autocomplete de arquivos/pastas)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-source <(kubectl completion zsh)
+# kubectl autocompletion
+if command -v kubectl >/dev/null 2>&1; then
+  source <(kubectl completion zsh)
+fi
 
-autoload -Uz compinit
-compinit
+# poetry autocompletion (opcional)
+if command -v poetry >/dev/null 2>&1; then
+  mkdir -p ~/.zfunc
+  poetry completions zsh > ~/.zfunc/_poetry
+  fpath+=~/.zfunc
+fi
 
-export PATH=$HOME/.local/bin:$PATH
-
-# pnpm
-export PNPM_HOME="/home/fcrespo/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
+# -----------------------------
+# 🧬 Conda (mantém o bloco padrão)
+# -----------------------------
+# >>> conda initialize >>>
+__conda_setup="$('/home/filipecrespodev/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/filipecrespodev/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/filipecrespodev/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/filipecrespodev/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
