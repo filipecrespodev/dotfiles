@@ -1,0 +1,145 @@
+{
+  // Zed Editor Settings with Debug Support
+  // Dotfiles configuration by Filipe Crespo
+
+  // Editor Settings
+  "theme": "One Dark",
+  "buffer_font_family": "JetBrains Mono",
+  "buffer_font_size": 14,
+  "buffer_font_features": {
+    "calt": true
+  },
+  "ui_font_size": 16,
+  "tab_size": 2,
+  "soft_wrap": "editor_width",
+  "show_whitespaces": "selection",
+  "relative_line_numbers": true,
+  "vim_mode": false,
+  "cursor_blink": true,
+  "auto_save": "on_focus_change",
+  "format_on_save": "on",
+  "show_inline_completions": true,
+  "inlay_hints": {
+    "enabled": true
+  },
+
+  // Git Integration
+  "git": {
+    "git_gutter": "tracked_files",
+    "inline_blame": {
+      "enabled": true
+    }
+  },
+
+  // Terminal Settings
+  "terminal": {
+    "font_family": "JetBrains Mono",
+    "font_size": 14,
+    "line_height": "comfortable",
+    "shell": {
+      "program": "zsh"
+    },
+    "working_directory": "current_project_directory",
+    "blinking": "terminal_controlled",
+    "alternate_scroll": "on",
+    "option_as_meta": false,
+    "copy_on_select": false,
+    "dock": "bottom",
+    "default_width": 640,
+    "default_height": 320,
+    "env": {
+      "TERM": "xterm-256color"
+    }
+  },
+
+  // Language Servers
+  "lsp": {
+    "rust-analyzer": {
+      "initialization_options": {
+        "check": {
+          "command": "clippy"
+        },
+        "diagnostics": {
+          "enable": true
+        }
+      }
+    },
+    "typescript-language-server": {
+      "initialization_options": {
+        "diagnostics": true,
+        "preferences": {
+          "includeInlayParameterNameHints": "all",
+          "includeInlayFunctionParameterTypeHints": true,
+          "includeInlayVariableTypeHints": true
+        }
+      }
+    },
+    "gopls": {
+      "initialization_options": {
+        "hints": {
+          "assignVariableTypes": true,
+          "compositeLiteralFields": true,
+          "constantValues": true,
+          "functionTypeParameters": true,
+          "parameterNames": true,
+          "rangeVariableTypes": true
+        }
+      }
+    },
+    "pyright": {
+      "settings": {
+        "python": {
+          "analysis": {
+            "diagnosticMode": "workspace",
+            "typeCheckingMode": "basic"
+          }
+        }
+      }
+    }
+  },
+
+  // Tasks & Debug Support
+  // Use tasks.json in project root for project-specific debug configurations
+  "task": {
+    "show_status_indicator": true
+  },
+
+  // File Settings
+  "file_scan_exclusions": [
+    "**/.git",
+    "**/.svn",
+    "**/.hg",
+    "**/CVS",
+    "**/.DS_Store",
+    "**/Thumbs.db",
+    "**/.classpath",
+    "**/.settings",
+    "**/node_modules",
+    "**/dist",
+    "**/build",
+    "**/.venv",
+    "**/.pytest_cache",
+    "**/__pycache__",
+    "**/target",
+    "**/.next",
+    "**/.nuxt",
+    "**/.cargo"
+  ],
+
+  // Collaboration
+  "collaboration_panel": {
+    "dock": "left"
+  },
+
+  // Features
+  "features": {
+    "copilot": false,
+    "inline_completion_provider": "none"
+  },
+
+  // Telemetry
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  }
+}

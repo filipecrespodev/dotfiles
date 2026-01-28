@@ -139,6 +139,46 @@ setup_kitty() {
     success "Kitty configurado"
 }
 
+# Configurações Zed Editor
+setup_zed() {
+    if ! command_exists zed; then
+        return
+    fi
+
+    info "Configurando Zed Editor..."
+
+    # Cria diretório de configuração do Zed
+    mkdir -p "$HOME/.config/zed"
+
+    # Symlink para settings.json
+    if [[ -f "${CONFIG_DIR}/zed/settings.json" ]]; then
+        safe_symlink "${CONFIG_DIR}/zed/settings.json" "$HOME/.config/zed/settings.json"
+    fi
+
+    # Symlink para tasks.json (template)
+    if [[ -f "${CONFIG_DIR}/zed/tasks.json" ]]; then
+        safe_symlink "${CONFIG_DIR}/zed/tasks.json" "$HOME/.config/zed/tasks.json"
+    fi
+
+    success "Zed Editor configurado"
+}
+
+# Configurações Terminator
+setup_terminator() {
+    if ! command_exists terminator; then
+        return
+    fi
+
+    info "Configurando Terminator..."
+
+    if [[ -f "${CONFIG_DIR}/terminator/config" ]]; then
+        mkdir -p "$HOME/.config/terminator"
+        safe_symlink "${CONFIG_DIR}/terminator/config" "$HOME/.config/terminator/config"
+    fi
+
+    success "Terminator configurado"
+}
+
 main() {
     setup_zsh
     setup_git
@@ -146,6 +186,8 @@ main() {
     setup_tmux
     setup_alacritty
     setup_kitty
+    setup_terminator
+    setup_zed
     setup_bash
 
     success "Todos os symlinks foram criados!"

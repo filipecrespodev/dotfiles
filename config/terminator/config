@@ -1,0 +1,46 @@
+[global_config]
+  title_transmit_bg_color = "#d30102"
+  focus = system
+  suppress_multiple_term_dialog = True
+
+[keybindings]
+  split_horiz = <Primary><Shift>h
+  split_vert = <Primary><Shift>v
+  close_term = <Primary><Shift>w
+  copy = <Primary><Shift>c
+  paste = <Primary><Shift>v
+  new_tab = <Primary><Shift>t
+  go_up = <Alt>Up
+  go_down = <Alt>Down
+  go_left = <Alt>Left
+  go_right = <Alt>Right
+  resize_up = <Primary><Alt>Up
+  resize_down = <Primary><Alt>Down
+  resize_left = <Primary><Alt>Left
+  resize_right = <Primary><Alt>Right
+
+[profiles]
+  [[default]]
+    background_darkness = 0.9
+    background_type = transparent
+    cursor_color = "#aaaaaa"
+    font = MesloLGS NF 11
+    use_system_font = False
+    show_titlebar = False
+    scrollbar_position = hidden
+    scrollback_lines = 10000
+    palette = "#282828:#cc241d:#98971a:#d79921:#458588:#b16286:#689d6a:#a89984:#928374:#fb4934:#b8bb26:#fabd2f:#83a598:#d3869b:#8ec07c:#ebdbb2"
+    use_theme_colors = False
+    foreground_color = "#ebdbb2"
+    background_color = "#282828"
+
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+
+[plugins]

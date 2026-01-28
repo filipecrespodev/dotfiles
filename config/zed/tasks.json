@@ -1,0 +1,200 @@
+[
+  // Zed Tasks Configuration with Debug Support
+  // This file provides debug task templates for various languages
+  // Copy this to your project's .zed/tasks.json and customize as needed
+
+  // ============================================================================
+  // Node.js / TypeScript Debug Tasks
+  // ============================================================================
+  {
+    "label": "Debug Node.js App",
+    "command": "node",
+    "args": ["--inspect-brk", "${ZED_FILE}"],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "env": {
+      "NODE_ENV": "development"
+    }
+  },
+  {
+    "label": "Debug TypeScript with ts-node",
+    "command": "node",
+    "args": ["--inspect-brk", "-r", "ts-node/register", "${ZED_FILE}"],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "Run Node.js Tests (Jest)",
+    "command": "npm",
+    "args": ["test", "--", "--watch"],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+
+  // ============================================================================
+  // Python Debug Tasks
+  // ============================================================================
+  {
+    "label": "Debug Python Script",
+    "command": "python",
+    "args": ["-m", "pdb", "${ZED_FILE}"],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "Debug Python with debugpy",
+    "command": "python",
+    "args": ["-m", "debugpy", "--listen", "5678", "--wait-for-client", "${ZED_FILE}"],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "Run Python Tests (pytest)",
+    "command": "pytest",
+    "args": ["-v", "--tb=short"],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+
+  // ============================================================================
+  // Go Debug Tasks
+  // ============================================================================
+  {
+    "label": "Debug Go with Delve",
+    "command": "dlv",
+    "args": ["debug", "${ZED_FILE}", "--headless", "--listen=:2345", "--api-version=2"],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "Run Go Tests",
+    "command": "go",
+    "args": ["test", "-v", "./..."],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "Run Go App",
+    "command": "go",
+    "args": ["run", "${ZED_FILE}"],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+
+  // ============================================================================
+  // Rust Debug Tasks
+  // ============================================================================
+  {
+    "label": "Debug Rust with lldb",
+    "command": "rust-lldb",
+    "args": ["target/debug/${ZED_WORKTREE_ROOT_NAME}"],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "Build Rust (Debug)",
+    "command": "cargo",
+    "args": ["build"],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "Run Rust Tests",
+    "command": "cargo",
+    "args": ["test", "--", "--nocapture"],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+
+  // ============================================================================
+  // C/C++ Debug Tasks
+  // ============================================================================
+  {
+    "label": "Debug C/C++ with GDB",
+    "command": "gdb",
+    "args": ["${ZED_FILE_WITHOUT_EXT}"],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "Debug C/C++ with LLDB",
+    "command": "lldb",
+    "args": ["${ZED_FILE_WITHOUT_EXT}"],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "Compile C++ (Debug)",
+    "command": "g++",
+    "args": ["-g", "-O0", "${ZED_FILE}", "-o", "${ZED_FILE_WITHOUT_EXT}"],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+
+  // ============================================================================
+  // Java Debug Tasks
+  // ============================================================================
+  {
+    "label": "Debug Java",
+    "command": "java",
+    "args": ["-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005", "-cp", ".", "${ZED_FILE_WITHOUT_EXT}"],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+
+  // ============================================================================
+  // Docker Debug Tasks
+  // ============================================================================
+  {
+    "label": "Docker Compose Up",
+    "command": "docker-compose",
+    "args": ["up", "-d"],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "Docker Compose Logs",
+    "command": "docker-compose",
+    "args": ["logs", "-f"],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+
+  // ============================================================================
+  // Generic Debug Tasks
+  // ============================================================================
+  {
+    "label": "Run Current File",
+    "command": "${ZED_FILE}",
+    "args": [],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "Make Debug Build",
+    "command": "make",
+    "args": ["debug"],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  }
+]
