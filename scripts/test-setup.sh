@@ -63,26 +63,15 @@ check_fonts() {
 check_terminals() {
     info "Verificando terminais..."
 
-    if command_exists alacritty; then
-        success "✓ Alacritty instalado"
-        if [[ -f "$HOME/.config/alacritty/alacritty.toml" ]]; then
+    if command_exists ghostty; then
+        success "✓ Ghostty instalado"
+        if [[ -f "$HOME/.config/ghostty/config" ]]; then
             success "  ✓ Configuração encontrada"
         else
             warning "  ⚠ Configuração não encontrada"
         fi
-    fi
-
-    if command_exists kitty; then
-        success "✓ Kitty instalado"
-        if [[ -f "$HOME/.config/kitty/kitty.conf" ]]; then
-            success "  ✓ Configuração encontrada"
-        else
-            warning "  ⚠ Configuração não encontrada"
-        fi
-    fi
-
-    if ! command_exists alacritty && ! command_exists kitty; then
-        warning "⚠ Nenhum terminal moderno instalado"
+    else
+        warning "⚠ Ghostty não instalado"
     fi
     echo ""
 }

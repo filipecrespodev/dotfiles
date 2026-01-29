@@ -29,9 +29,10 @@ setup_zsh() {
     fi
 
     # Cria link simbólico para o tema do Oh-My-Posh
-    if [[ -f "${CONFIG_DIR}/themes/oh-my-posh.json" ]]; then
-        mkdir -p "$HOME/config/themes"
-        safe_symlink "${CONFIG_DIR}/themes/oh-my-posh.json" "$HOME/config/themes/oh-my-posh.json"
+    local theme_file="${DOTFILES_DIR}/theme/theme.omp.json"
+    if [[ -f "$theme_file" ]]; then
+        mkdir -p "$HOME/.config/oh-my-posh"
+        safe_symlink "$theme_file" "$HOME/.config/oh-my-posh/theme.omp.json"
     fi
 
     success "ZSH configurado"
@@ -107,36 +108,20 @@ setup_bash() {
     success "Bash configurado"
 }
 
-# Configurações Alacritty
-setup_alacritty() {
-    if ! command_exists alacritty; then
+# Configurações Ghostty
+setup_ghostty() {
+    if ! command_exists ghostty; then
         return
     fi
 
-    info "Configurando Alacritty..."
+    info "Configurando Ghostty..."
 
-    if [[ -f "${CONFIG_DIR}/alacritty/alacritty.toml" ]]; then
-        mkdir -p "$HOME/.config/alacritty"
-        safe_symlink "${CONFIG_DIR}/alacritty/alacritty.toml" "$HOME/.config/alacritty/alacritty.toml"
+    if [[ -f "${CONFIG_DIR}/ghostty/config" ]]; then
+        mkdir -p "$HOME/.config/ghostty"
+        safe_symlink "${CONFIG_DIR}/ghostty/config" "$HOME/.config/ghostty/config"
     fi
 
-    success "Alacritty configurado"
-}
-
-# Configurações Kitty
-setup_kitty() {
-    if ! command_exists kitty; then
-        return
-    fi
-
-    info "Configurando Kitty..."
-
-    if [[ -f "${CONFIG_DIR}/kitty/kitty.conf" ]]; then
-        mkdir -p "$HOME/.config/kitty"
-        safe_symlink "${CONFIG_DIR}/kitty/kitty.conf" "$HOME/.config/kitty/kitty.conf"
-    fi
-
-    success "Kitty configurado"
+    success "Ghostty configurado"
 }
 
 # Configurações Zed Editor
@@ -163,30 +148,12 @@ setup_zed() {
     success "Zed Editor configurado"
 }
 
-# Configurações Terminator
-setup_terminator() {
-    if ! command_exists terminator; then
-        return
-    fi
-
-    info "Configurando Terminator..."
-
-    if [[ -f "${CONFIG_DIR}/terminator/config" ]]; then
-        mkdir -p "$HOME/.config/terminator"
-        safe_symlink "${CONFIG_DIR}/terminator/config" "$HOME/.config/terminator/config"
-    fi
-
-    success "Terminator configurado"
-}
-
 main() {
     setup_zsh
     setup_git
     setup_vim
     setup_tmux
-    setup_alacritty
-    setup_kitty
-    setup_terminator
+    setup_ghostty
     setup_zed
     setup_bash
 

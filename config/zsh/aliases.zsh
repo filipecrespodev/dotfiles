@@ -1,4 +1,31 @@
+# ============================================================================
+# Dotfiles
+# ============================================================================
+
+alias dotfiles='cd ~/Workspace/My/dotfiles'
+alias dotfiles-edit='${EDITOR:-vim} ~/Workspace/My/dotfiles'
+
+# Sincroniza histórico com repo privado
+dotfiles-sync() {
+    local private_dir="$HOME/.dotfiles-private"
+    if [[ -d "$private_dir/.git" ]]; then
+        echo "Sincronizando dotfiles privados..."
+        cd "$private_dir"
+        git add -A
+        git commit -m "sync: $(date +%Y-%m-%d\ %H:%M)" 2>/dev/null || echo "Nada para commitar"
+        git push origin main
+        cd - > /dev/null
+        echo "✓ Sincronizado!"
+    else
+        echo "✗ Repositório privado não configurado"
+        echo "  Execute: ./bootstrap.sh e escolha configurar repo privado"
+    fi
+}
+
+# ============================================================================
 # Editores
+# ============================================================================
+
 alias z="zed ."
 alias c="code ."
 alias cur="cursor ."
