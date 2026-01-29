@@ -19,8 +19,20 @@ local/
 # Sensitive data
 .env
 .env.*
-*_history
 .secrets
+*.pem
+*.key
+credentials*
+**/secrets/
+
+# History files (NUNCA versionar)
+*_history
+.zsh_history
+.bash_history
+.node_repl_history
+.python_history
+.lesshst
+.wget-hsts
 
 # IDE
 .idea/

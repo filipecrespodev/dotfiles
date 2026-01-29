@@ -1,407 +1,337 @@
 #!/bin/bash
 
-set -e
+# ══════════════════════════════════════════════════════════════
+# FUNÇÕES DE INSTALAÇÃO - PACOTES DO SISTEMA
+# ══════════════════════════════════════════════════════════════
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "${SCRIPT_DIR}/../scripts/utils.sh"
+# Este arquivo é sourced pelo bootstrap.sh
+# As funções install_* são chamadas diretamente
 
-info "Iniciando instalação de pacotes do sistema..."
+SCRIPT_DIR="${SCRIPT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)}"
+[[ -z "$NC" ]] && source "${SCRIPT_DIR}/../scripts/utils.sh"
 
-# Homebrew - Package manager
+# ══════════════════════════════════════════════════════════════
+# CATEGORIA: SISTEMA BASE
+# ══════════════════════════════════════════════════════════════
+
 install_homebrew() {
     if command_exists brew; then
-        info "Homebrew já está instalado"
-        return
+        return 0
     fi
 
-    if ! ask_yes_no "Deseja instalar Homebrew?" "y"; then
-        return
-    fi
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-    info "Instalando Homebrew..."
-
-    if is_macos; then
-        # Instala Homebrew no macOS
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        success "Homebrew instalado no macOS"
-    elif is_linux; then
-        # Instala Homebrew no Linux (Linuxbrew)
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-        # Configura PATH para Homebrew no Linux
-        local brew_shellenv
-        if [[ -d "/home/linuxbrew/.linuxbrew" ]]; then
-            brew_shellenv='eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
-        elif [[ -d "$HOME/.linuxbrew" ]]; then
-            brew_shellenv='eval "$($HOME/.linuxbrew/bin/brew shellenv)"'
-        fi
-
-        if [[ -n "$brew_shellenv" ]]; then
-            # Adiciona ao shell atual
-            eval "$brew_shellenv"
-
-            # Adiciona ao .zshrc se não existir
-            if [[ -f "$HOME/.zshrc" ]] && ! grep -q "brew shellenv" "$HOME/.zshrc"; then
-                echo "" >> "$HOME/.zshrc"
-                echo "# Homebrew" >> "$HOME/.zshrc"
-                echo "$brew_shellenv" >> "$HOME/.zshrc"
+    # Configura PATH para Homebrew no Linux
+    if is_linux; then
+        local brew_path="/home/linuxbrew/.linuxbrew/bin/brew"
+        if [[ -f "$brew_path" ]]; then
+            eval "$($brew_path shellenv)"
+            local shellenv_cmd='eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
+            if [[ -f "$HOME/.zshrc" ]] && ! grep -q "linuxbrew" "$HOME/.zshrc"; then
+                echo "$shellenv_cmd" >> "$HOME/.zshrc"
             fi
         fi
-
-        success "Homebrew instalado no Linux"
-        info "Reinicie o terminal ou execute: eval \"\$(brew shellenv)\""
     fi
+    return 0
 }
 
-# Atualiza repositórios
-update_system() {
-    info "Atualizando repositórios do sistema..."
-
-    if is_linux; then
-        if command_exists apt-get; then
-            sudo apt-get update -y
-            sudo apt-get upgrade -y
-        elif command_exists dnf; then
-            sudo dnf update -y
-        elif command_exists pacman; then
-            sudo pacman -Syu --noconfirm
-        fi
-    elif is_macos; then
-        if command_exists brew; then
-            brew update
-        fi
-    fi
-
-    success "Sistema atualizado"
-}
-
-# Pacotes essenciais
 install_essentials() {
-    info "Instalando pacotes essenciais..."
-
-    local packages=(
-        git
-        curl
-        wget
-        zsh
-        vim
-        tmux
-        build-essential
-        ca-certificates
-    )
+    local packages=(git curl wget zsh vim tmux)
 
     if is_linux && command_exists apt-get; then
-        sudo apt-get install -y "${packages[@]}"
-    elif is_macos; then
+        sudo apt-get update -y
+        sudo apt-get install -y build-essential ca-certificates "${packages[@]}"
+    elif is_macos && command_exists brew; then
         brew install "${packages[@]}"
     fi
-
-    success "Pacotes essenciais instalados"
+    return 0
 }
 
-# Ferramentas de desenvolvimento
-install_dev_tools() {
-    info "Instalando ferramentas de desenvolvimento..."
+install_dev_dependencies() {
+    if is_linux && command_exists apt-get; then
+        sudo apt-get install -y \
+            bison pkg-config ncurses-dev libevent-dev \
+            software-properties-common gnupg2 apt-transport-https
+    fi
+    return 0
+}
 
-    local packages=(
-        ripgrep
-        fzf
-        xclip
-        silversearcher-ag
+category_base() {
+    local items=(
+        "Homebrew|Gerenciador de pacotes universal"
+        "Essenciais|git, curl, wget, zsh, vim, tmux"
+        "Dependências Dev|build-essential, pkg-config, etc"
     )
 
-    if is_linux && command_exists apt-get; then
-        # Adiciona pacotes específicos do Linux
-        packages+=(
-            bison
-            pkg-config
-            ncurses-dev
-            libevent-dev
-            software-properties-common
-            gnupg2
-            apt-transport-https
-        )
-        sudo apt-get install -y "${packages[@]}"
-    elif is_macos; then
-        # No macOS, alguns pacotes têm nomes diferentes
-        brew install ripgrep fzf the_silver_searcher
-    fi
+    show_selection_menu "SISTEMA BASE - Selecione os componentes" "${items[@]}"
 
-    success "Ferramentas de desenvolvimento instaladas"
+    for num in $MENU_SELECTION; do
+        case $num in
+            1) run_installation "Homebrew" install_homebrew brew ;;
+            2) run_installation "Pacotes Essenciais" install_essentials zsh ;;
+            3) run_installation "Dependências Dev" install_dev_dependencies ;;
+        esac
+    done
 }
 
-# Fontes
-install_fonts() {
-    info "Instalando dependências de fontes..."
+# ══════════════════════════════════════════════════════════════
+# CATEGORIA: FONTES
+# ══════════════════════════════════════════════════════════════
 
-    if is_linux && command_exists apt-get; then
-        # Apenas instala as ferramentas necessárias para gerenciar fontes
-        sudo apt-get install -y fontconfig unzip
-    elif is_macos; then
-        # No macOS, fontconfig geralmente já vem instalado
-        if ! command_exists unzip; then
-            brew install unzip
-        fi
-    fi
-
-    # Chama o script específico de instalação de fontes
-    if [[ -f "${SCRIPT_DIR}/fonts.sh" ]]; then
-        bash "${SCRIPT_DIR}/fonts.sh"
+install_jetbrains_mono() {
+    local font_dir
+    if is_macos; then
+        font_dir="$HOME/Library/Fonts"
     else
-        warning "Script de fontes não encontrado. Execute 'install/fonts.sh' manualmente."
+        font_dir="$HOME/.local/share/fonts"
     fi
 
-    success "Processo de instalação de fontes concluído"
+    if fc-list 2>/dev/null | grep -qi "JetBrains"; then
+        return 0
+    fi
+
+    mkdir -p "$font_dir"
+
+    local version="3.0"
+    local zip_file="/tmp/JetBrainsMono.zip"
+    curl -fsSL "https://github.com/JetBrains/JetBrainsMono/releases/download/v${version}/JetBrainsMono-${version}.zip" -o "$zip_file"
+    unzip -o "$zip_file" -d "/tmp/JetBrainsMono"
+    cp /tmp/JetBrainsMono/fonts/ttf/*.ttf "$font_dir/"
+    rm -rf /tmp/JetBrainsMono "$zip_file"
+
+    if is_linux && command_exists fc-cache; then
+        fc-cache -fv "$font_dir" >/dev/null 2>&1
+    fi
+    return 0
 }
 
-# Emuladores de Terminal
-install_terminal_emulator() {
-    if ! ask_yes_no "Deseja instalar um emulador de terminal moderno?" "y"; then
-        return
+install_meslo_nf() {
+    local font_dir
+    if is_macos; then
+        font_dir="$HOME/Library/Fonts"
+    else
+        font_dir="$HOME/.local/share/fonts"
     fi
 
-    echo ""
-    echo "Escolha o emulador de terminal:"
-    echo ""
-    echo "  1) Alacritty (Recomendado)"
-    echo "     - Mais rápido (GPU-accelerated)"
-    echo "     - Leve e minimalista"
-    echo "     - Configuração simples em YAML"
-    echo ""
-    echo "  2) Kitty"
-    echo "     - GPU-accelerated"
-    echo "     - Suporta imagens no terminal"
-    echo "     - Split panes nativo"
-    echo ""
-    echo "  3) Ambos"
-    echo ""
-    read -p "Opção [1-3] (padrão: 1): " choice
-    choice=${choice:-1}
+    if fc-list 2>/dev/null | grep -qi "MesloLGS NF"; then
+        return 0
+    fi
 
-    if is_linux && command_exists apt-get; then
-        case $choice in
-            1)
-                info "Instalando Alacritty..."
-                # Tenta instalar via repositórios oficiais primeiro
-                if sudo apt-get install -y alacritty 2>/dev/null; then
-                    success "Alacritty instalado via apt"
-                else
-                    # Se falhar, usa cargo (Rust)
-                    warning "Instalando via cargo (pode levar alguns minutos)..."
-                    if ! command_exists cargo; then
-                        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-                        source "$HOME/.cargo/env"
-                    fi
-                    cargo install alacritty
-                    success "Alacritty instalado via cargo"
-                fi
-                ;;
-            2)
-                info "Instalando Kitty..."
-                sudo apt-get install -y kitty
-                success "Kitty instalado"
-                ;;
-            3)
-                info "Instalando Alacritty e Kitty..."
-                # Alacritty
-                if sudo apt-get install -y alacritty 2>/dev/null; then
-                    success "Alacritty instalado via apt"
-                else
-                    warning "Instalando Alacritty via cargo (pode levar alguns minutos)..."
-                    if ! command_exists cargo; then
-                        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-                        source "$HOME/.cargo/env"
-                    fi
-                    cargo install alacritty
-                    success "Alacritty instalado via cargo"
-                fi
-                # Kitty
-                sudo apt-get install -y kitty
-                success "Alacritty e Kitty instalados"
-                ;;
+    mkdir -p "$font_dir"
+
+    local base_url="https://github.com/romkatv/powerlevel10k-media/raw/master"
+    local fonts=(
+        "MesloLGS%20NF%20Regular.ttf"
+        "MesloLGS%20NF%20Bold.ttf"
+        "MesloLGS%20NF%20Italic.ttf"
+        "MesloLGS%20NF%20Bold%20Italic.ttf"
+    )
+
+    for font in "${fonts[@]}"; do
+        local font_name
+        font_name=$(echo "$font" | sed 's/%20/ /g')
+        curl -fsSL "$base_url/$font" -o "$font_dir/$font_name"
+    done
+
+    if is_linux && command_exists fc-cache; then
+        fc-cache -fv "$font_dir" >/dev/null 2>&1
+    fi
+    return 0
+}
+
+category_fonts() {
+    local items=(
+        "JetBrains Mono|Fonte moderna para programação"
+        "MesloLGS NF|Nerd Font para Powerlevel10k"
+    )
+
+    show_selection_menu "FONTES - Selecione as fontes" "${items[@]}"
+
+    for num in $MENU_SELECTION; do
+        case $num in
+            1) run_installation "JetBrains Mono" install_jetbrains_mono ;;
+            2) run_installation "MesloLGS NF" install_meslo_nf ;;
         esac
+    done
+}
+
+# ══════════════════════════════════════════════════════════════
+# CATEGORIA: TERMINAIS
+# ══════════════════════════════════════════════════════════════
+
+install_alacritty() {
+    if is_linux && command_exists apt-get; then
+        if ! sudo apt-get install -y alacritty 2>/dev/null; then
+            # Fallback: instala via cargo
+            if ! command_exists cargo; then
+                curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+                source "$HOME/.cargo/env"
+            fi
+            cargo install alacritty
+        fi
     elif is_macos; then
-        case $choice in
-            1)
-                brew install --cask alacritty
-                success "Alacritty instalado"
-                ;;
-            2)
-                brew install --cask kitty
-                success "Kitty instalado"
-                ;;
-            3)
-                brew install --cask alacritty kitty
-                success "Alacritty e Kitty instalados"
-                ;;
-        esac
+        brew install --cask alacritty
     fi
-
-    # Configura terminal como padrão
-    echo ""
-    if ask_yes_no "Deseja configurar o terminal instalado como padrão do sistema?" "y"; then
-        if [[ -f "${SCRIPT_DIR}/../scripts/set-default-terminal.sh" ]]; then
-            bash "${SCRIPT_DIR}/../scripts/set-default-terminal.sh"
-        else
-            warning "Script de configuração de terminal padrão não encontrado."
-        fi
-    fi
+    return 0
 }
 
-# Aplicativos opcionais
-install_optional_apps() {
-    if ! ask_yes_no "Deseja instalar aplicativos opcionais (Brave, etc)?" "n"; then
-        return
-    fi
-
-    info "Instalando aplicativos opcionais..."
-
+install_kitty() {
     if is_linux && command_exists apt-get; then
-        # Brave Browser
-        if ! command_exists brave-browser; then
-            sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg \
-                https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-            echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main" | \
-                sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-            sudo apt-get update
-            sudo apt-get install -y brave-browser
-        fi
+        sudo apt-get install -y kitty
+    elif is_macos; then
+        brew install --cask kitty
+    fi
+    return 0
+}
 
-        # Outras ferramentas úteis
-        sudo apt-get install -y peek dconf-cli chrome-gnome-shell flameshot
+install_terminator() {
+    if is_linux && command_exists apt-get; then
+        sudo apt-get install -y terminator
+    fi
+    return 0
+}
 
+category_terminals() {
+    local items=(
+        "Alacritty|Terminal GPU-accelerated, rápido e leve"
+        "Kitty|Terminal GPU com suporte a imagens"
+        "Terminator|Terminal com split panes nativo"
+    )
+
+    show_selection_menu "TERMINAIS - Selecione os terminais" "${items[@]}"
+
+    for num in $MENU_SELECTION; do
+        case $num in
+            1) run_installation "Alacritty" install_alacritty alacritty ;;
+            2) run_installation "Kitty" install_kitty kitty ;;
+            3) run_installation "Terminator" install_terminator terminator ;;
+        esac
+    done
+}
+
+# ══════════════════════════════════════════════════════════════
+# CATEGORIA: APLICATIVOS
+# ══════════════════════════════════════════════════════════════
+
+install_brave() {
+    if is_linux && command_exists apt-get; then
+        sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg \
+            https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+        echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main" | \
+            sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+        sudo apt-get update
+        sudo apt-get install -y brave-browser
     elif is_macos; then
         brew install --cask brave-browser
     fi
-
-    success "Aplicativos opcionais instalados"
+    return 0
 }
 
-# Flameshot (Screenshot tool)
-install_flameshot() {
-    if ! ask_yes_no "Deseja instalar Flameshot (ferramenta de screenshot)?" "y"; then
-        return
+install_discord() {
+    if is_linux; then
+        if command_exists snap; then
+            sudo snap install discord
+        elif command_exists apt-get; then
+            local discord_deb="/tmp/discord.deb"
+            wget -O "$discord_deb" "https://discord.com/api/download?platform=linux&format=deb"
+            sudo apt-get install -y "$discord_deb"
+            rm -f "$discord_deb"
+        fi
+    elif is_macos; then
+        brew install --cask discord
     fi
+    return 0
+}
 
-    info "Instalando Flameshot..."
+install_spotify() {
+    if is_linux && command_exists snap; then
+        sudo snap install spotify
+    elif is_macos; then
+        brew install --cask spotify
+    fi
+    return 0
+}
 
+install_telegram() {
+    if is_linux && command_exists snap; then
+        sudo snap install telegram-desktop
+    elif is_macos; then
+        brew install --cask telegram
+    fi
+    return 0
+}
+
+install_libreoffice() {
+    if is_linux && command_exists apt-get; then
+        sudo apt-get install -y libreoffice libreoffice-l10n-pt-br libreoffice-help-pt-br
+    elif is_macos; then
+        brew install --cask libreoffice
+    fi
+    return 0
+}
+
+install_flameshot() {
     if is_linux && command_exists apt-get; then
         sudo apt-get install -y flameshot
     elif is_macos; then
         brew install --cask flameshot
     fi
-
-    if command_exists flameshot; then
-        success "Flameshot instalado"
-
-        # Configura atalho automático se possível
-        if [[ -f "${SCRIPT_DIR}/../scripts/configure-flameshot.sh" ]]; then
-            if ask_yes_no "Deseja configurar o atalho Print Screen para o Flameshot?" "y"; then
-                bash "${SCRIPT_DIR}/../scripts/configure-flameshot.sh"
-            fi
-        fi
-    else
-        error "Falha ao instalar Flameshot"
-    fi
+    return 0
 }
 
-# LibreOffice
-install_libreoffice() {
-    if command_exists libreoffice; then
-        info "LibreOffice já está instalado"
-        return
-    fi
-
-    if ! ask_yes_no "Deseja instalar LibreOffice?" "y"; then
-        return
-    fi
-
-    info "Instalando LibreOffice..."
-
-    if is_linux && command_exists apt-get; then
-        sudo apt-get install -y libreoffice libreoffice-l10n-pt-br libreoffice-help-pt-br
-        success "LibreOffice instalado com suporte ao português"
-    elif is_macos; then
-        brew install --cask libreoffice
-        success "LibreOffice instalado via Homebrew"
-    fi
-}
-
-# Discord
-install_discord() {
-    if command_exists discord; then
-        info "Discord já está instalado"
-        return
-    fi
-
-    if ! ask_yes_no "Deseja instalar Discord?" "y"; then
-        return
-    fi
-
-    info "Instalando Discord..."
-
-    if is_linux; then
-        if command_exists snap; then
-            # Instala via snap (mais fácil e auto-atualiza)
-            sudo snap install discord
-            success "Discord instalado via snap"
-        elif command_exists apt-get; then
-            # Instala via .deb oficial
-            local discord_deb="/tmp/discord.deb"
-            wget -O "$discord_deb" "https://discord.com/api/download?platform=linux&format=deb"
-            sudo apt-get install -y "$discord_deb"
-            rm -f "$discord_deb"
-            success "Discord instalado via .deb"
-        fi
-    elif is_macos; then
-        brew install --cask discord
-        success "Discord instalado via Homebrew"
-    fi
-}
-
-# Snap packages (apenas Linux)
-install_snap_packages() {
-    if ! is_linux || ! command_exists snap; then
-        return
-    fi
-
-    if ! ask_yes_no "Deseja instalar pacotes snap (Telegram, Spotify, etc)?" "n"; then
-        return
-    fi
-
-    info "Instalando pacotes snap..."
-
-    local snap_packages=(
-        "telegram-desktop"
-        "spotify"
+category_apps() {
+    local items=(
+        "Brave Browser|Navegador focado em privacidade"
+        "Discord|Comunicação para comunidades"
+        "Spotify|Streaming de música"
+        "Telegram|Mensagens instantâneas"
+        "LibreOffice|Suite de escritório"
+        "Flameshot|Ferramenta de screenshots"
     )
 
-    for package in "${snap_packages[@]}"; do
-        if ! snap list | grep -q "$package"; then
-            sudo snap install "$package"
-        fi
+    show_selection_menu "APLICATIVOS - Selecione os aplicativos" "${items[@]}"
+
+    for num in $MENU_SELECTION; do
+        case $num in
+            1) run_installation "Brave Browser" install_brave brave-browser ;;
+            2) run_installation "Discord" install_discord discord ;;
+            3) run_installation "Spotify" install_spotify spotify ;;
+            4) run_installation "Telegram" install_telegram telegram-desktop ;;
+            5) run_installation "LibreOffice" install_libreoffice libreoffice ;;
+            6) run_installation "Flameshot" install_flameshot flameshot ;;
+        esac
     done
-
-    success "Pacotes snap instalados"
 }
 
-main() {
-    install_homebrew
-    update_system
-    install_essentials
-    install_dev_tools
-    install_fonts
-    install_terminal_emulator
-    install_flameshot
-    install_libreoffice
-    install_discord
-    install_optional_apps
-    install_snap_packages
+# ══════════════════════════════════════════════════════════════
+# CATEGORIA: MONITORAMENTO
+# ══════════════════════════════════════════════════════════════
 
-    success "Instalação de pacotes concluída!"
+install_btop() {
+    if command_exists brew; then
+        brew install btop
+    elif is_linux && command_exists apt-get; then
+        sudo apt-get install -y btop
+    fi
+    return 0
 }
 
-# Executa apenas se for chamado diretamente
-if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
-    main "$@"
-fi
+category_monitoring() {
+    local items=(
+        "btop|Monitor de sistema moderno e bonito"
+    )
+
+    show_selection_menu "MONITORAMENTO - Selecione as ferramentas" "${items[@]}"
+
+    for num in $MENU_SELECTION; do
+        case $num in
+            1) run_installation "btop" install_btop btop ;;
+        esac
+    done
+}
+
+# ══════════════════════════════════════════════════════════════
+# EXPORTS (funções disponíveis para o bootstrap.sh)
+# ══════════════════════════════════════════════════════════════
+
+# As funções install_* são chamadas diretamente pelo bootstrap.sh

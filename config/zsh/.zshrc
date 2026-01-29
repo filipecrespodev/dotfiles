@@ -128,12 +128,48 @@ fi
 # History Configuration
 # ============================================================================
 
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=50000
+SAVEHIST=50000
 HISTFILE=~/.zsh_history
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_FIND_NO_DUPS
-setopt SHARE_HISTORY
+
+# Opções de histórico
+setopt HIST_IGNORE_ALL_DUPS     # Remove duplicatas antigas
+setopt HIST_FIND_NO_DUPS        # Não mostra duplicatas na busca
+setopt HIST_IGNORE_DUPS         # Não salva comando se igual ao anterior
+setopt HIST_IGNORE_SPACE        # IMPORTANTE: comandos com espaço no início NÃO são salvos
+setopt HIST_REDUCE_BLANKS       # Remove espaços extras
+setopt HIST_VERIFY              # Mostra comando antes de executar do histórico
+setopt HIST_EXPIRE_DUPS_FIRST   # Remove duplicatas primeiro quando limite atingido
+setopt SHARE_HISTORY            # Compartilha histórico entre sessões
+setopt EXTENDED_HISTORY         # Salva timestamp dos comandos
+setopt INC_APPEND_HISTORY       # Adiciona ao histórico imediatamente
+
+# ============================================================================
+# Segurança do Histórico - Ignora comandos sensíveis
+# ============================================================================
+
+# Função para filtrar comandos sensíveis do histórico
+zshaddhistory() {
+    local line="${1%%$'\n'}"
+    local cmd="${line%% *}"
+
+    # Ignora comandos que contêm padrões sensíveis
+    [[ "$line" =~ (password|passwd|secret|token|api.?key|bearer|auth) ]] && return 1
+    [[ "$line" =~ (AWS_SECRET|GITHUB_TOKEN|API_KEY|PRIVATE_KEY) ]] && return 1
+    [[ "$line" =~ (curl.*(-u|--user|Authorization)) ]] && return 1
+    [[ "$line" =~ (mysql.*-p|psql.*password) ]] && return 1
+    [[ "$line" =~ (export.*(TOKEN|SECRET|PASSWORD|KEY)=) ]] && return 1
+    [[ "$line" =~ (echo.*\|.*base64) ]] && return 1
+
+    # Ignora comandos perigosos sem confirmação
+    [[ "$line" =~ (rm -rf /|rm -rf \*|:\(\)\{) ]] && return 1
+
+    return 0
+}
+
+# Aliases para comandos que não devem ir pro histórico
+# Use: secret_cmd seu_comando_aqui
+alias secret_cmd=' '  # Espaço no início = não salva no histórico
 
 # ============================================================================
 # ZSH Options
