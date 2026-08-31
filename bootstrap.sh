@@ -92,6 +92,9 @@ declare -A ITEMS=(
     # Monitoring
     ["btop"]="btop|btop"
 
+    # Backup
+    ["Backup da home (borg / backup-pc)"]="backup|borg"
+
     # Private
     ["Dotfiles Privados (histórico)"]="private|"
 )
@@ -136,6 +139,7 @@ run_installer() {
         dbeaver)        run_installation "DBeaver" install_dbeaver dbeaver ;;
         apidog)         run_installation "Apidog" install_apidog apidog ;;
         btop)           run_installation "btop" install_btop btop ;;
+        backup)         bash "${SCRIPT_DIR}/install/backup.sh" ;;
         private)        bash "${SCRIPT_DIR}/install/private.sh" ;;
     esac
 }
